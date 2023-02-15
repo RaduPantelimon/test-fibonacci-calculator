@@ -6,23 +6,22 @@ using System.Threading.Tasks;
 
 namespace NebuniaLuiFibonacci
 {
-    public class ThreadWorker : Worker
+    public class ThreadProcessor<T> : BackgroundProcessor<T> where T : ISequentialProcess
     {
-        public ThreadWorker(int term1, int term2) : base(term1, term2)
+        public ThreadProcessor(T process) : base(process)
         {
         }
 
-        protected override void BeginFibonacci()
+        protected override void BeginProcess()
         {
-            Thread thread = new Thread(() =>
+            new Thread(() =>
             {
                 while (!CancellationTokenSource.IsCancellationRequested)
                 {
-                    GenerateNextFibonacciElement();
+                    Process.ExecuteNextSequence();
                     CancellationTokenSource.Token.WaitHandle.WaitOne(TickDelay);
                 }
-            });
-            thread.Start();
+            }).Start();
         }
     }
 }

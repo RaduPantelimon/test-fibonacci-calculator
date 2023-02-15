@@ -23,14 +23,14 @@ namespace NebuniaLuiFibonacci
     public partial class MainWindow : Window
     {
 
-        public ObservableCollection<Worker> FibonacciRequests { get; set; } = new();
+        public ObservableCollection<BackgroundProcessor<FibonacciProcess>> FibonacciRequests { get; set; } = new();
 
         public MainWindow()
         {
-            FibonacciRequests.Add(new TaskWorker(2, 3));
-            FibonacciRequests.Add(new TaskWorker(1, 1));
-            FibonacciRequests.Add(new ThreadWorker(1, 1));
-            FibonacciRequests.Add(new ThreadWorker(3, 4));
+            FibonacciRequests.Add(new TaskProcessor<FibonacciProcess>(new FibonacciProcess(2, 3)));
+            FibonacciRequests.Add(new TaskProcessor<FibonacciProcess>(new FibonacciProcess(5, 8)));
+            FibonacciRequests.Add(new ThreadProcessor<FibonacciProcess>(new FibonacciProcess(1, 2)));
+            FibonacciRequests.Add(new ThreadProcessor<FibonacciProcess>(new FibonacciProcess(1, 1)));
 
             FibonacciRequests[0].Start();
             FibonacciRequests[1].Start();
@@ -40,13 +40,14 @@ namespace NebuniaLuiFibonacci
 
             SetCommandBindings();
             InitializeComponent();
+
         }
 
 
         public void StopWorker_Execute(object sender, ExecutedRoutedEventArgs e)
         {
             //remove Fibonacci worker and stop it
-            Worker worker = (Worker)e.Parameter;
+            BackgroundProcessor<FibonacciProcess> worker = (BackgroundProcessor<FibonacciProcess>)e.Parameter;
             worker.Stop();
             FibonacciRequests.Remove(worker);
         }

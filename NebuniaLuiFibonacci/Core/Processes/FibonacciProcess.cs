@@ -1,5 +1,4 @@
 ﻿using NebuniaLuiFibonacci.Core;
-using NebuniaLuiFibonacci.Core.Processes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace NebuniaLuiFibonacci
 {
-    public class FibonacciProcess: IProcess, INotifyPropertyChanged
+    public class FibonacciProcess: ISequentialProcess, INotifyPropertyChanged
     {
         public int OriginalFirstTerm { get; }
         public int OriginalSecondTerm { get; }
@@ -29,10 +28,8 @@ namespace NebuniaLuiFibonacci
             protected set
             {
                 lock (_penultimateTermLock)
-                {
-                    if (_penultimateTerm == value) return;
                     _penultimateTerm = value;
-                }
+
                 OnPropertyChanged();
             }
         }
@@ -47,10 +44,8 @@ namespace NebuniaLuiFibonacci
             protected set
             {
                 lock (_lastTermLock)
-                {
-                    if (_lastTerm == value) return;
                     _lastTerm = value;
-                }
+
                 OnPropertyChanged();
             }
         }
@@ -61,7 +56,7 @@ namespace NebuniaLuiFibonacci
             LastTerm = OriginalSecondTerm = term2;
         }
 
-        public void ExecuteNextStep()
+        public void ExecuteNextSequence()
         {
             //calculate new Fibonacci element and update terms
             int sum = PenultimateTerm + LastTerm;

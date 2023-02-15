@@ -23,28 +23,28 @@
                     <DataGridTemplateColumn Header="Penultimate Term" Width="*"  IsReadOnly="True">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding PenultimateTerm}" IsEnabled="False" />
+                                <TextBlock Text="{Binding Process.PenultimateTerm}" IsEnabled="False" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="Last Term" Width="*"  IsReadOnly="True">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding LastTerm}" IsEnabled="False" />
+                                <TextBlock Text="{Binding Process.LastTerm}" IsEnabled="False" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="Original First Term" Width="*"  IsReadOnly="True">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding OriginalFirstTerm}" IsEnabled="False" />
+                                <TextBlock Text="{Binding Process.OriginalFirstTerm}" IsEnabled="False" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="Original Second Term" Width="*"  IsReadOnly="True">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding OriginalSecondTerm}" IsEnabled="False" />
+                                <TextBlock Text="{Binding Process.OriginalSecondTerm}" IsEnabled="False" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
