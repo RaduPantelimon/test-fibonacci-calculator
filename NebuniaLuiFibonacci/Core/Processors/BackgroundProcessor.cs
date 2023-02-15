@@ -1,5 +1,4 @@
-﻿using NebuniaLuiFibonacci.Core;
-using NebuniaLuiFibonacci.Properties;
+﻿using NebuniaLuiFibonacci.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,7 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace NebuniaLuiFibonacci
+namespace NebuniaLuiFibonacci.Core
 {
     public abstract class BackgroundProcessor<T>:ISequentialProcessor<T>, INotifyPropertyChanged where T: ISequentialProcess
     {

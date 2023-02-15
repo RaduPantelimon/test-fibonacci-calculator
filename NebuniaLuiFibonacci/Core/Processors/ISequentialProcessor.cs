@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NebuniaLuiFibonacci
+namespace NebuniaLuiFibonacci.Core
 {
     public interface ISequentialProcessor<T> where T: ISequentialProcess
     {

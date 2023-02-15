@@ -1,5 +1,4 @@
-﻿using NebuniaLuiFibonacci.Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -7,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NebuniaLuiFibonacci
+namespace NebuniaLuiFibonacci.Core
 {
     public class FibonacciProcess: ISequentialProcess, INotifyPropertyChanged
     {

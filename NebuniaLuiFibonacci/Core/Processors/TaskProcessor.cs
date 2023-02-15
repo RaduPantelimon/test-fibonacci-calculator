@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NebuniaLuiFibonacci
+namespace NebuniaLuiFibonacci.Core
 {
     public class TaskProcessor<T> : BackgroundProcessor<T> where T : ISequentialProcess
     {
