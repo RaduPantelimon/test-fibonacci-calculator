@@ -10,5 +10,8 @@ namespace NebuniaLuiFibonacci.Core
     public interface ISequentialProcessor<T> where T: ISequentialProcess
     {
         T Process { get;}
+        WorkerState Status { get; }
+        void Start();
+        void Stop();
     }
 }
