@@ -33,12 +33,6 @@ namespace NebuniaLuiFibonacci
             FibonacciRequests.Add(new ThreadProcessor<FibonacciProcess>(new FibonacciProcess(1, 2)));
             FibonacciRequests.Add(new ThreadProcessor<FibonacciProcess>(new FibonacciProcess(1, 1)));
 
-            FibonacciRequests[0].Start();
-            FibonacciRequests[1].Start();
-            FibonacciRequests[2].Start();
-            FibonacciRequests[3].Start();
-
-
             SetCommandBindings();
             InitializeComponent();
 
@@ -52,14 +46,23 @@ namespace NebuniaLuiFibonacci
             worker.Stop();
             FibonacciRequests.Remove(worker);
         }
+        public void StartWorker_Execute(object sender, ExecutedRoutedEventArgs e)
+        {
+            //remove Fibonacci worker and stop it
+            BackgroundProcessor<FibonacciProcess> worker = (BackgroundProcessor<FibonacciProcess>)e.Parameter;
+            worker.Start();
+        }
 
         #region Commands
         public ICommand StopWorkerCommand { get; set; }
+        public ICommand StartWorkerCommand { get; set; }
 
         public void SetCommandBindings()
         {
             StopWorkerCommand = new RoutedCommand();
+            StartWorkerCommand = new RoutedCommand();
             CommandBindings.Add(new CommandBinding(StopWorkerCommand, StopWorker_Execute));
+            CommandBindings.Add(new CommandBinding(StartWorkerCommand, StartWorker_Execute));
         }
         #endregion
     }

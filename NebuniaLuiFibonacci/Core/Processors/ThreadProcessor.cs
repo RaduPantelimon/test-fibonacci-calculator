@@ -14,14 +14,16 @@ namespace NebuniaLuiFibonacci.Core
 
         protected override void BeginProcess()
         {
-            new Thread(() =>
+            var thread = new Thread(() =>
             {
                 while (!CancellationTokenSource.IsCancellationRequested)
                 {
                     Process.ExecuteNextSequence();
                     CancellationTokenSource.Token.WaitHandle.WaitOne(TickDelay);
                 }
-            }).Start();
+            });
+            thread.IsBackground = true;
+            thread.Start();
         }
     }
 }
