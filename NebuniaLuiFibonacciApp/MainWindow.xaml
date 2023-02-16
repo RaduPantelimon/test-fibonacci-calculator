@@ -30,10 +30,10 @@
                 <DataGrid.RowStyle>
                     <Style TargetType="DataGridRow">
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding Status}" Value="{x:Static core:WorkerState.Running}">
+                            <DataTrigger Binding="{Binding Status}" Value="{x:Static core:ProcessorState.WaitingForActivation}">
                                 <Setter Property="Background" Value="LightYellow" />
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding Status}" Value="{x:Static core:WorkerState.WaitingForActivation}">
+                            <DataTrigger Binding="{Binding Status}" Value="{x:Static core:ProcessorState.Running}">
                                 <Setter Property="Background" Value="LightSkyBlue" />
                             </DataTrigger>
                         </Style.Triggers>
@@ -73,10 +73,10 @@
                         <DataGridTemplateColumn.CellStyle>
                             <Style TargetType="DataGridCell">
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Path=Status}" Value="{x:Static core:WorkerState.Running}">
+                                    <DataTrigger Binding="{Binding Path=Status}" Value="{x:Static core:ProcessorState.Running}">
                                         <Setter Property="ContentTemplate" Value="{StaticResource RunningTaskActions}" />
                                     </DataTrigger>
-                                    <DataTrigger Binding="{Binding Path=Status}" Value="{x:Static core:WorkerState.WaitingForActivation}">
+                                    <DataTrigger Binding="{Binding Path=Status}" Value="{x:Static core:ProcessorState.WaitingForActivation}">
                                         <Setter Property="ContentTemplate" Value="{StaticResource UnactivatedTaskActions}" />
                                     </DataTrigger>
                                 </Style.Triggers>

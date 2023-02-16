@@ -20,8 +20,8 @@ namespace NebuniaLuiFibonacci.Core
 
         private readonly object _stateLock = new object();
 
-        WorkerState _state;
-        public WorkerState Status { 
+        ProcessorState _state;
+        public ProcessorState Status { 
             get
             {
                 lock (_stateLock)
@@ -43,17 +43,17 @@ namespace NebuniaLuiFibonacci.Core
         {
             Process = process;
             CancellationTokenSource = new CancellationTokenSource();
-            Status = WorkerState.WaitingForActivation;
+            Status = ProcessorState.WaitingForActivation;
         }
 
         public void Start()
         {
-            if (Status == WorkerState.RanUntilCanceled) 
+            if (Status == ProcessorState.RanUntilCanceled) 
                 throw new InvalidOperationException(Resources.Exception_StartFinishedWorker);
-            if (Status != WorkerState.WaitingForActivation) 
+            if (Status != ProcessorState.WaitingForActivation) 
                 throw new InvalidOperationException(Resources.Exception_GenericStartWorkerError);
 
-            Status = WorkerState.Running;
+            Status = ProcessorState.Running;
             BeginProcess();
         }
 
@@ -61,10 +61,10 @@ namespace NebuniaLuiFibonacci.Core
 
         public void Stop()
         {
-            if (Status != WorkerState.Running) 
+            if (Status != ProcessorState.Running) 
                 throw new InvalidOperationException(Resources.Exception_StopWorkerError);
             
-            Status = WorkerState.RanUntilCanceled;
+            Status = ProcessorState.RanUntilCanceled;
             CancellationTokenSource.Cancel();
         }
             

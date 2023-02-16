@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NebuniaLuiFibonacci.Core
 {
-    public enum WorkerState
+    public enum ProcessorState
     {
         WaitingForActivation,
         Running,
