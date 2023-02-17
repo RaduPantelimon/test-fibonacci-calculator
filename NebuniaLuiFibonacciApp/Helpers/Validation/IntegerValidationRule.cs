@@ -8,7 +8,7 @@ using System.Windows.Controls;
 
 namespace NebuniaLuiFibonacciApp
 {
-    public class FibbonaciNumberValidationRule : ValidationRule
+    public class IntegerValidationRule : ValidationRule
     {
         public override ValidationResult Validate(object value, System.Globalization.CultureInfo cultureInfo)
         {

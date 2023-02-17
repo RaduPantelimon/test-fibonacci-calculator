@@ -123,7 +123,7 @@
                 <TextBox.Text>
                     <Binding Path="FirstTerm" UpdateSourceTrigger="PropertyChanged"  >
                         <Binding.ValidationRules>
-                            <local:FibbonaciNumberValidationRule x:Name="FirstTermValidation" ValidatesOnTargetUpdated="True"/>
+                            <local:IntegerValidationRule x:Name="FirstTermValidation" ValidatesOnTargetUpdated="True"/>
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
@@ -133,7 +133,7 @@
                 <TextBox.Text>
                     <Binding Path="SecondTerm" UpdateSourceTrigger="PropertyChanged" >
                         <Binding.ValidationRules>
-                            <local:FibbonaciNumberValidationRule x:Name="SecondTermValidation" ValidatesOnTargetUpdated="True"/>
+                            <local:IntegerValidationRule x:Name="SecondTermValidation" ValidatesOnTargetUpdated="True"/>
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>

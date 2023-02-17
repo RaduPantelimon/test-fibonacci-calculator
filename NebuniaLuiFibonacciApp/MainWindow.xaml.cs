@@ -38,7 +38,7 @@ namespace NebuniaLuiFibonacci
             SetCommandBindings();
             InitializeComponent();
 
-            WorkerCreationPanel.DataContext = new WorkerTypeCreationViewModel();
+            WorkerCreationPanel.DataContext = new FibonacciWorkerViewModel();
 
             //Set Default value for ComboBox
             WorkerTypeComboBox.SelectedIndex = (int)WorkerType.Task;
