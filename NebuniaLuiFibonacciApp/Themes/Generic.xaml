@@ -2,9 +2,103 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <SolidColorBrush x:Key="RibbonButtonMouseOverBrush" Color="#FFE7E7E7"/>
-    <SolidColorBrush x:Key="RibbonButtonMousePressedBrush" Color="#FFCDCED1"/>
-    <SolidColorBrush x:Key="RibbonFocusVisualBorderBrush" Color="#575A61"/>
+    <SolidColorBrush x:Key="DefaultForeground" Color="#696969"/>
+    <SolidColorBrush x:Key="ButtonMouseOverBrush" Color="#FFE7E7E7"/>
+    <SolidColorBrush x:Key="ButtonMouseOverForeground" Color="#000"/>
+    <SolidColorBrush x:Key="ButtonDefaultBrush" Color="#fff"/>
+    <SolidColorBrush x:Key="ButtonBorderBrush" Color="#ccc"/>
+
     
+    <Style TargetType="{x:Type Control}" x:Key="BaseEmphasizedStyle">
+        <Setter Property="FontWeight" Value="DemiBold" />
+        <Setter Property="Foreground" Value="{StaticResource DefaultForeground}" />
+    </Style>
+
+    <Style x:Key="BasicGrid" TargetType="DataGrid">
+        <Setter Property="GridLinesVisibility" Value="None"/>
+        <Setter Property="ColumnWidth" Value="*"/>
+        <Setter Property="Height" Value="Auto"/>
+        <Setter Property="Margin" Value="10"/>
+        <Setter Property="CanUserAddRows" Value="False"/>
+        <Setter Property="CanUserDeleteRows" Value="False"/>
+        <Setter Property="Focusable" Value="false"/>
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+    </Style>
+
+    <Style TargetType="{x:Type TextBlock}" x:Key="BaseTextBlock">
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontWeight" Value="DemiBold" />
+        <Setter Property="Foreground" Value="{StaticResource DefaultForeground}" />
+    </Style>
     
+    <Style TargetType="{x:Type TextBlock}" x:Key="HeaderTextBlock" BasedOn="{StaticResource BaseTextBlock}">
+        <Setter Property="Margin" Value="20,10" />
+        <Setter Property="FontSize" Value="20" />
+    </Style>
+    
+    <Style TargetType="{x:Type TextBlock}" x:Key="InputFieldLabel" BasedOn="{StaticResource BaseTextBlock}" >
+        <Setter Property="Margin" Value="5,5,10,5" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+    </Style>
+
+    <Style TargetType="{x:Type TextBox}" x:Key="InputField" >
+        <Setter Property="Margin" Value="5,0,10,5" />
+        <Setter Property="Width" Value="150" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+    </Style>
+
+    <Style TargetType="{x:Type TextBox}" x:Key="DisabledInputField" BasedOn="{StaticResource InputField}" >
+        <Setter Property="Background" Value="#DEDEDE"/>
+    </Style>
+    
+    <Style TargetType="{x:Type ComboBox}" x:Key="BasicComboBox" >
+        <Setter Property="Margin" Value="5,0,10,5" />
+        <Setter Property="Width" Value="150" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+    </Style>
+    
+    <Style TargetType="Button" x:Key="BasicButton" BasedOn="{StaticResource BaseEmphasizedStyle}">
+        <Setter Property="Background" Value="{StaticResource ButtonDefaultBrush}" />
+        <Setter Property="TextBlock.TextAlignment" Value="Center" />
+        <Setter Property="BorderBrush" Value="{StaticResource ButtonBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1,1,1,1" />
+        <Setter Property="Border.CornerRadius" Value="3" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border CornerRadius="{TemplateBinding Border.CornerRadius}" 
+                        BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}"
+                        BorderThickness="{TemplateBinding BorderThickness}" >
+                        <ContentPresenter x:Name="contentPresenter" 
+                                ContentTemplate="{TemplateBinding ContentTemplate}" 
+                                Content="{TemplateBinding Content}" 
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                Margin="{TemplateBinding Padding}" 
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{StaticResource ButtonMouseOverBrush}"/>
+                            <Setter Property="Foreground" Value="{StaticResource ButtonMouseOverForeground}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type Button}" x:Key="GridButton" BasedOn="{StaticResource BasicButton}">
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="Padding" Value="10,5" />
+    </Style>
+
+    <Style TargetType="{x:Type Button}" x:Key="SaveButton" BasedOn="{StaticResource BasicButton}">
+        <Setter Property="Margin" Value="10" />
+        <Setter Property="Padding" Value="20,10" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="FontWeight" Value="DemiBold" />
+    </Style>
+
 </ResourceDictionary>

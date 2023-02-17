@@ -4,29 +4,52 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:NebuniaLuiFibonacci"
+        xmlns:s="clr-namespace:System;assembly=mscorlib"
+        xmlns:local="clr-namespace:NebuniaLuiFibonacciApp"
+        xmlns:props="clr-namespace:NebuniaLuiFibonacciApp.Properties"
         xmlns:core="clr-namespace:NebuniaLuiFibonacci.Core;assembly=NebuniaLuiFibonacci"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         mc:Ignorable="d"
-        Title="Fibonacci App" Height="450" Width="800">
+        Title="Fibonacci App" Height="325" Width="750">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Themes/Generic.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <!--These 2 templates are basic, but they will eventually contain different sets of actions -->
+            <!--These 2 templates are basic, but they will eventually contain different sets of actions and a more complex layout-->
             <DataTemplate x:Key="RunningTaskActions">
-                <Button Command="{Binding StopWorkerCommand, ElementName=ResWindow}" CommandParameter="{Binding}">Stop Task</Button>
+                <Button Command="{Binding StopWorkerCommand, ElementName=ResWindow}" CommandParameter="{Binding}"
+                        Style="{StaticResource GridButton}"
+                        Content="{x:Static props:Resources.StopTaskButton_Text}" />
             </DataTemplate>
             <DataTemplate x:Key="UnactivatedTaskActions">
-                <Button Command="{Binding StartWorkerCommand, ElementName=ResWindow}" CommandParameter="{Binding}">Start Task</Button>
+                <Button Command="{Binding StartWorkerCommand, ElementName=ResWindow}" CommandParameter="{Binding}"
+                        Style="{StaticResource GridButton}"
+                        Content="{x:Static props:Resources.StartTaskButton_Text}" />
             </DataTemplate>
+            <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
+                            ObjectType="{x:Type s:Enum}">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="local:WorkerType"/>
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
         </ResourceDictionary>
     </Window.Resources>
     <Grid>
-        <StackPanel Orientation="Vertical" Width="Auto">
-            <DataGrid ItemsSource="{Binding FibonacciRequests,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                  AutoGenerateColumns="False" MaxHeight="275" Width="520" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Vertical" Width="Auto">
+            <TextBlock Text="{x:Static props:Resources.MainWindow_Header}" Style="{StaticResource HeaderTextBlock}" />
+        </StackPanel>
+
+        <DataGrid  Grid.Row="1" Grid.Column="0" ItemsSource="{Binding FibonacciRequests,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                      Style="{StaticResource BasicGrid}" AutoGenerateColumns="False" MaxHeight="275" Width="Auto"  Margin="10 15" >
                 <DataGrid.RowStyle>
                     <Style TargetType="DataGridRow">
                         <Style.Triggers>
@@ -39,37 +62,41 @@
                         </Style.Triggers>
                     </Style>
                 </DataGrid.RowStyle>
-                
+
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="Penultimate Term" Width="*"  IsReadOnly="True">
+                    <DataGridTemplateColumn Header="{x:Static props:Resources.FibDataGrid_Column_FirstTerm}" Width="*"  IsReadOnly="True">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Process.PenultimateTerm}" IsEnabled="False"/>
+                                <TextBlock Text="{Binding Process.PenultimateTerm}" IsEnabled="False" 
+                                           Style="{StaticResource BaseTextBlock}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Last Term" Width="*"  IsReadOnly="True">
+                    <DataGridTemplateColumn Header="{x:Static props:Resources.FibDataGrid_Column_SecondTerm}" Width="*"  IsReadOnly="True">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Process.LastTerm}" IsEnabled="False" />
+                                <TextBlock Text="{Binding Process.LastTerm}" IsEnabled="False" 
+                                          Style="{StaticResource BaseTextBlock}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Original First Term" Width="*"  IsReadOnly="True">
+                    <DataGridTemplateColumn Header="{x:Static props:Resources.FibDataGrid_Column_OriginalFirstTerm}" Width="*"  IsReadOnly="True">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Process.OriginalFirstTerm}" IsEnabled="False" />
+                                <TextBlock Text="{Binding Process.OriginalFirstTerm}" IsEnabled="False" 
+                                           Style="{StaticResource BaseTextBlock}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Original Second Term" Width="*"  IsReadOnly="True">
+                    <DataGridTemplateColumn Header="{x:Static props:Resources.FibDataGrid_Column_OriginalSecondTerm}" Width="*"  IsReadOnly="True">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Process.OriginalSecondTerm}" IsEnabled="False" />
+                                <TextBlock Text="{Binding Process.OriginalSecondTerm}" IsEnabled="False" 
+                                           Style="{StaticResource BaseTextBlock}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Actions" Width="100" IsReadOnly="True">
+                    <DataGridTemplateColumn Header="{x:Static props:Resources.FibDataGrid_Column_Actions}" Width="*" IsReadOnly="True">
                         <DataGridTemplateColumn.CellStyle>
                             <Style TargetType="DataGridCell">
                                 <Style.Triggers>
@@ -85,6 +112,24 @@
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Width="Auto">
+            <Separator Margin="0,0,5,0" Height="250">
+                <Separator.Style>
+                    <Style TargetType="Separator" BasedOn="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                </Separator.Style>
+            </Separator>
+            <StackPanel Orientation="Vertical" Width="Auto" Margin="5 5">
+                <TextBlock Text="{x:Static props:Resources.FirstTermInput_Label}" Style="{StaticResource InputFieldLabel}" />
+                <TextBox Name="Url" Text="{Binding UrlRegexFilter, Mode=TwoWay}" Style="{StaticResource InputField}" />
+                <TextBlock Text="{x:Static props:Resources.SecondTermInput_Label}" Style="{StaticResource InputFieldLabel}" />
+                <TextBox Name="RequestBody" Text="{Binding BodyRegexFilter, Mode=TwoWay}" Style="{StaticResource InputField}" />
+                <TextBlock Text="{x:Static props:Resources.ProcessorSelectionInput_Label}" Style="{StaticResource InputFieldLabel}" />
+                <ComboBox ItemsSource="{Binding Source={StaticResource dataFromEnum}}"
+                  SelectedItem="{Binding Path=CurrentEffectStyle}"  Style="{StaticResource BasicComboBox}" />
+                <Button Command="{Binding CreateWorkerCommand, ElementName=ResWindow}" CommandParameter="{Binding}"
+                        Style="{StaticResource SaveButton}"
+                        Content="{x:Static props:Resources.RunProcessButton_Label}" MaxWidth="125" />
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>

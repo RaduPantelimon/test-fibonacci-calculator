@@ -46,9 +46,17 @@ namespace NebuniaLuiFibonacci
             worker.Stop();
             FibonacciRequests.Remove(worker);
         }
+        
         public void StartWorker_Execute(object sender, ExecutedRoutedEventArgs e)
         {
-            //remove Fibonacci worker and stop it
+            //start Fibonacci worker and stop it
+            BackgroundProcessor<FibonacciProcess> worker = (BackgroundProcessor<FibonacciProcess>)e.Parameter;
+            worker.Start();
+        }
+
+        public void CreateWorker_Execute(object sender, ExecutedRoutedEventArgs e)
+        {
+            //create Fibonacci worker and stop it
             BackgroundProcessor<FibonacciProcess> worker = (BackgroundProcessor<FibonacciProcess>)e.Parameter;
             worker.Start();
         }
@@ -56,13 +64,16 @@ namespace NebuniaLuiFibonacci
         #region Commands
         public ICommand StopWorkerCommand { get; set; }
         public ICommand StartWorkerCommand { get; set; }
+        public ICommand CreateWorkerCommand { get; set; }
 
         public void SetCommandBindings()
         {
             StopWorkerCommand = new RoutedCommand();
             StartWorkerCommand = new RoutedCommand();
+            CreateWorkerCommand = new RoutedCommand();
             CommandBindings.Add(new CommandBinding(StopWorkerCommand, StopWorker_Execute));
             CommandBindings.Add(new CommandBinding(StartWorkerCommand, StartWorker_Execute));
+            CommandBindings.Add(new CommandBinding(CreateWorkerCommand, CreateWorker_Execute));
         }
         #endregion
     }
