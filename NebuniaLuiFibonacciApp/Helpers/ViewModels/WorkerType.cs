@@ -8,7 +8,7 @@ namespace NebuniaLuiFibonacciApp
 {
     public enum WorkerType
     {
-        Thread,
-        Task
+        Task,
+        Thread
     }
 }

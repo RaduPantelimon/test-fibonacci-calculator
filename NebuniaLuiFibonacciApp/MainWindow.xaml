@@ -33,6 +33,9 @@
                     <x:Type TypeName="local:WorkerType"/>
                 </ObjectDataProvider.MethodParameters>
             </ObjectDataProvider>
+
+            <local:ErrorCollectionToVisibility x:Key="ToVisibility" />
+            
         </ResourceDictionary>
     </Window.Resources>
     <Grid>
@@ -49,87 +52,114 @@
         </StackPanel>
 
         <DataGrid  Grid.Row="1" Grid.Column="0" ItemsSource="{Binding FibonacciRequests,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                      Style="{StaticResource BasicGrid}" AutoGenerateColumns="False" MaxHeight="275" Width="Auto"  Margin="10 15" >
-                <DataGrid.RowStyle>
-                    <Style TargetType="DataGridRow">
+                    Style="{StaticResource BasicGrid}" MaxHeight="275" Width="Auto"  Margin="10 15"
+                   SelectionMode="Single" AutoGenerateColumns="False" Focusable="False" >
+
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Status}" Value="{x:Static core:ProcessorState.WaitingForActivation}">
+                            <Setter Property="Background" Value="{StaticResource DefaultDataGridRowBrush}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Status}" Value="{x:Static core:ProcessorState.Running}">
+                            <Setter Property="Background" Value="{StaticResource FocusedDataGridRowBrush}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="{x:Static props:Resources.FibDataGrid_Column_FirstTerm}" Width="*"  IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Process.PenultimateTerm}" IsEnabled="False" 
+                                           Style="{StaticResource BaseTextBlock}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="{x:Static props:Resources.FibDataGrid_Column_SecondTerm}" Width="*"  IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Process.LastTerm}" IsEnabled="False" 
+                                          Style="{StaticResource BaseTextBlock}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="{x:Static props:Resources.FibDataGrid_Column_OriginalFirstTerm}" Width="*"  IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Process.OriginalFirstTerm}" IsEnabled="False" 
+                                           Style="{StaticResource BaseTextBlock}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="{x:Static props:Resources.FibDataGrid_Column_OriginalSecondTerm}" Width="*"  IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Process.OriginalSecondTerm}" IsEnabled="False" 
+                                           Style="{StaticResource BaseTextBlock}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="{x:Static props:Resources.FibDataGrid_Column_Actions}" Width="*" IsReadOnly="True">
+                    <DataGridTemplateColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=Status}" Value="{x:Static core:ProcessorState.Running}">
+                                    <Setter Property="ContentTemplate" Value="{StaticResource RunningTaskActions}" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Path=Status}" Value="{x:Static core:ProcessorState.WaitingForActivation}">
+                                    <Setter Property="ContentTemplate" Value="{StaticResource UnactivatedTaskActions}" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGridTemplateColumn.CellStyle>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Grid.Row="1" Grid.Column="1" Name="WorkerCreationPanel"  Orientation="Vertical" Width="Auto" Margin="5 5">
+            <TextBlock Text="{x:Static props:Resources.FirstTermInput_Label}" Style="{StaticResource InputFieldLabel}" />
+            <TextBox Name="FirstTermTextBox" Style="{StaticResource InputField}">
+                <TextBox.Text>
+                    <Binding Path="FirstTerm" UpdateSourceTrigger="PropertyChanged"  >
+                        <Binding.ValidationRules>
+                            <local:FibbonaciNumberValidationRule x:Name="FirstTermValidation" ValidatesOnTargetUpdated="True"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <TextBlock Text="{x:Static props:Resources.SecondTermInput_Label}" Style="{StaticResource InputFieldLabel}" />
+            <TextBox Name="SecondTermTextBox" Style="{StaticResource InputField}">
+                <TextBox.Text>
+                    <Binding Path="SecondTerm" UpdateSourceTrigger="PropertyChanged" >
+                        <Binding.ValidationRules>
+                            <local:FibbonaciNumberValidationRule x:Name="SecondTermValidation" ValidatesOnTargetUpdated="True"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <TextBlock Text="{x:Static props:Resources.ProcessorSelectionInput_Label}" Style="{StaticResource InputFieldLabel}" />
+            <ComboBox Name="WorkerTypeComboBox" ItemsSource="{Binding Source={StaticResource dataFromEnum}}"
+                SelectedItem="{Binding Path=CurrentEffectStyle}"  Style="{StaticResource BasicComboBox}" />
+
+            <Button Command="{Binding CreateWorkerCommand, ElementName=ResWindow}" CommandParameter="{Binding}"
+                    Content="{x:Static props:Resources.RunProcessButton_Label}">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource SaveButton}">
+                        <Setter Property="Content" Value=""/>
+                        <Setter Property="IsEnabled" Value="false" />
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding Status}" Value="{x:Static core:ProcessorState.WaitingForActivation}">
-                                <Setter Property="Background" Value="LightYellow" />
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding Status}" Value="{x:Static core:ProcessorState.Running}">
-                                <Setter Property="Background" Value="LightSkyBlue" />
-                            </DataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding ElementName=FirstTermTextBox, Path=(Validation.HasError)}" Value="false" />
+                                    <Condition Binding="{Binding ElementName=SecondTermTextBox, Path=(Validation.HasError)}" Value="false" />
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="IsEnabled" Value="true" />
+                            </MultiDataTrigger>
                         </Style.Triggers>
                     </Style>
-                </DataGrid.RowStyle>
-
-                <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="{x:Static props:Resources.FibDataGrid_Column_FirstTerm}" Width="*"  IsReadOnly="True">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Process.PenultimateTerm}" IsEnabled="False" 
-                                           Style="{StaticResource BaseTextBlock}"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="{x:Static props:Resources.FibDataGrid_Column_SecondTerm}" Width="*"  IsReadOnly="True">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Process.LastTerm}" IsEnabled="False" 
-                                          Style="{StaticResource BaseTextBlock}"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="{x:Static props:Resources.FibDataGrid_Column_OriginalFirstTerm}" Width="*"  IsReadOnly="True">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Process.OriginalFirstTerm}" IsEnabled="False" 
-                                           Style="{StaticResource BaseTextBlock}"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="{x:Static props:Resources.FibDataGrid_Column_OriginalSecondTerm}" Width="*"  IsReadOnly="True">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Process.OriginalSecondTerm}" IsEnabled="False" 
-                                           Style="{StaticResource BaseTextBlock}"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="{x:Static props:Resources.FibDataGrid_Column_Actions}" Width="*" IsReadOnly="True">
-                        <DataGridTemplateColumn.CellStyle>
-                            <Style TargetType="DataGridCell">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Path=Status}" Value="{x:Static core:ProcessorState.Running}">
-                                        <Setter Property="ContentTemplate" Value="{StaticResource RunningTaskActions}" />
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding Path=Status}" Value="{x:Static core:ProcessorState.WaitingForActivation}">
-                                        <Setter Property="ContentTemplate" Value="{StaticResource UnactivatedTaskActions}" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </DataGridTemplateColumn.CellStyle>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Width="Auto">
-            <Separator Margin="0,0,5,0" Height="250">
-                <Separator.Style>
-                    <Style TargetType="Separator" BasedOn="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                </Separator.Style>
-            </Separator>
-            <StackPanel Orientation="Vertical" Width="Auto" Margin="5 5">
-                <TextBlock Text="{x:Static props:Resources.FirstTermInput_Label}" Style="{StaticResource InputFieldLabel}" />
-                <TextBox Name="Url" Text="{Binding UrlRegexFilter, Mode=TwoWay}" Style="{StaticResource InputField}" />
-                <TextBlock Text="{x:Static props:Resources.SecondTermInput_Label}" Style="{StaticResource InputFieldLabel}" />
-                <TextBox Name="RequestBody" Text="{Binding BodyRegexFilter, Mode=TwoWay}" Style="{StaticResource InputField}" />
-                <TextBlock Text="{x:Static props:Resources.ProcessorSelectionInput_Label}" Style="{StaticResource InputFieldLabel}" />
-                <ComboBox ItemsSource="{Binding Source={StaticResource dataFromEnum}}"
-                  SelectedItem="{Binding Path=CurrentEffectStyle}"  Style="{StaticResource BasicComboBox}" />
-                <Button Command="{Binding CreateWorkerCommand, ElementName=ResWindow}" CommandParameter="{Binding}"
-                        Style="{StaticResource SaveButton}"
-                        Content="{x:Static props:Resources.RunProcessButton_Label}" MaxWidth="125" />
-            </StackPanel>
+                </Button.Style>
+            </Button>
         </StackPanel>
     </Grid>
 </Window>

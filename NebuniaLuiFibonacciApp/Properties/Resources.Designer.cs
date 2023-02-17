@@ -61,6 +61,15 @@ namespace NebuniaLuiFibonacciApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Value must be a valid integer!.
+        /// </summary>
+        public static string ErrorMessage_InvalidIntValue {
+            get {
+                return ResourceManager.GetString("ErrorMessage_InvalidIntValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Actions.
         /// </summary>
         public static string FibDataGrid_Column_Actions {
@@ -133,7 +142,7 @@ namespace NebuniaLuiFibonacciApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Run Process.
+        ///   Looks up a localized string similar to Run Fibonacci.
         /// </summary>
         public static string RunProcessButton_Label {
             get {

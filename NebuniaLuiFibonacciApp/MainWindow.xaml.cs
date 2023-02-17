@@ -15,6 +15,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using NebuniaLuiFibonacci.Core;
+using NebuniaLuiFibonacciApp;
+using NebuniaLuiFibonacciApp.Helpers;
 
 namespace NebuniaLuiFibonacci
 {
@@ -36,8 +38,11 @@ namespace NebuniaLuiFibonacci
             SetCommandBindings();
             InitializeComponent();
 
-        }
+            WorkerCreationPanel.DataContext = new WorkerTypeCreationViewModel();
 
+            //Set Default value for ComboBox
+            WorkerTypeComboBox.SelectedIndex = (int)WorkerType.Task;
+        }
 
         public void StopWorker_Execute(object sender, ExecutedRoutedEventArgs e)
         {

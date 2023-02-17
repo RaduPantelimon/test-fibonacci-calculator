@@ -8,6 +8,8 @@
     <SolidColorBrush x:Key="ButtonDefaultBrush" Color="#fff"/>
     <SolidColorBrush x:Key="ButtonBorderBrush" Color="#ccc"/>
 
+    <SolidColorBrush x:Key="FocusedDataGridRowBrush" Color="LightSkyBlue"/>
+    <SolidColorBrush x:Key="DefaultDataGridRowBrush" Color="LightYellow"/>
     
     <Style TargetType="{x:Type Control}" x:Key="BaseEmphasizedStyle">
         <Setter Property="FontWeight" Value="DemiBold" />
@@ -96,9 +98,10 @@
 
     <Style TargetType="{x:Type Button}" x:Key="SaveButton" BasedOn="{StaticResource BasicButton}">
         <Setter Property="Margin" Value="10" />
-        <Setter Property="Padding" Value="20,10" />
+        <Setter Property="Padding" Value="15,15" />
         <Setter Property="FontSize" Value="15" />
         <Setter Property="FontWeight" Value="DemiBold" />
+        <Setter Property="MaxWidth" Value="150" />
     </Style>
 
 </ResourceDictionary>
