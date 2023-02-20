@@ -8,9 +8,9 @@ namespace NebuniaLuiFibonacci.Core
 {
     public enum ProcessorState
     {
-        WaitingForActivation,
+        Unactivated,
         Running,
-        RanUntilCanceled,
+        Canceled,
         Faulted
     }
 }

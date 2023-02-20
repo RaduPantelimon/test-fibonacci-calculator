@@ -43,14 +43,14 @@ namespace NebuniaLuiFibonacci.Core
         {
             Process = process;
             CancellationTokenSource = new CancellationTokenSource();
-            Status = ProcessorState.WaitingForActivation;
+            Status = ProcessorState.Unactivated;
         }
 
         public void Start()
         {
-            if (Status == ProcessorState.RanUntilCanceled) 
+            if (Status == ProcessorState.Canceled) 
                 throw new InvalidOperationException(Resources.Exception_StartFinishedWorker);
-            if (Status != ProcessorState.WaitingForActivation) 
+            if (Status != ProcessorState.Unactivated) 
                 throw new InvalidOperationException(Resources.Exception_GenericStartWorkerError);
 
             Status = ProcessorState.Running;
@@ -64,7 +64,7 @@ namespace NebuniaLuiFibonacci.Core
             if (Status != ProcessorState.Running) 
                 throw new InvalidOperationException(Resources.Exception_StopWorkerError);
             
-            Status = ProcessorState.RanUntilCanceled;
+            Status = ProcessorState.Canceled;
             CancellationTokenSource.Cancel();
         }
             

@@ -57,7 +57,7 @@
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow">
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding Status}" Value="{x:Static core:ProcessorState.WaitingForActivation}">
+                        <DataTrigger Binding="{Binding Status}" Value="{x:Static core:ProcessorState.Unactivated}">
                             <Setter Property="Background" Value="{StaticResource DefaultDataGridRowBrush}" />
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Status}" Value="{x:Static core:ProcessorState.Running}">
@@ -115,7 +115,7 @@
                                 <DataTrigger Binding="{Binding Path=Status}" Value="{x:Static core:ProcessorState.Running}">
                                     <Setter Property="ContentTemplate" Value="{StaticResource RunningProcessActions}" />
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding Path=Status}" Value="{x:Static core:ProcessorState.WaitingForActivation}">
+                                <DataTrigger Binding="{Binding Path=Status}" Value="{x:Static core:ProcessorState.Unactivated}">
                                     <Setter Property="ContentTemplate" Value="{StaticResource NotStartedProcessActions}" />
                                 </DataTrigger>
                             </Style.Triggers>
@@ -124,8 +124,8 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" Width="Auto" Margin="5 5">
-            <StackPanel DataContext="{Binding FibonacciProcess}"  Orientation="Vertical" Width="Auto">
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" Width="Auto" Margin="5 5" MaxWidth="175">
+            <StackPanel DataContext="{Binding FibonacciProcess}"  Orientation="Vertical" HorizontalAlignment="Center" Width="Auto">
 
                 <TextBlock Text="{x:Static props:Resources.FirstTermInput_Label}" Style="{StaticResource InputFieldLabel}" />
                 <TextBox Name="FirstTermTextBox" Style="{StaticResource InputField}"
