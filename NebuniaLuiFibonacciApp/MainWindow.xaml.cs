@@ -28,7 +28,7 @@ namespace NebuniaLuiFibonacci
     {
 
         public ObservableCollection<BackgroundProcessor<FibonacciProcess>> FibonacciRequests { get; set; } = new();
-        protected FibonacciWorkerViewModel FibonacciWorkerModel { get; }
+        protected FibonacciProcessViewModel FibonacciWorkerModel { get; }
 
         public MainWindow()
         {
@@ -40,7 +40,7 @@ namespace NebuniaLuiFibonacci
             SetCommandBindings();
             InitializeComponent();
 
-            FibonacciWorkerModel = new FibonacciWorkerViewModel();
+            FibonacciWorkerModel = new FibonacciProcessViewModel();
             WorkerCreationPanel.DataContext = FibonacciWorkerModel;
 
             //Set Default value for ComboBox
