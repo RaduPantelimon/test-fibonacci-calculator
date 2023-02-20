@@ -27,6 +27,7 @@ namespace NebuniaLuiFibonacci
     {
 
         public ObservableCollection<BackgroundProcessor<FibonacciProcess>> FibonacciRequests { get; set; } = new();
+        protected FibonacciWorkerViewModel FibonacciWorkerModel { get; }
 
         public MainWindow()
         {
@@ -38,10 +39,11 @@ namespace NebuniaLuiFibonacci
             SetCommandBindings();
             InitializeComponent();
 
-            WorkerCreationPanel.DataContext = new FibonacciWorkerViewModel();
+            FibonacciWorkerModel = new FibonacciWorkerViewModel();
+            WorkerCreationPanel.DataContext = FibonacciWorkerModel;
 
             //Set Default value for ComboBox
-            WorkerTypeComboBox.SelectedIndex = (int)WorkerType.Task;
+            WorkerTypeComboBox.SelectedIndex = (int)ProcessorType.Task;
         }
 
         public void StopWorker_Execute(object sender, ExecutedRoutedEventArgs e)
@@ -54,16 +56,21 @@ namespace NebuniaLuiFibonacci
         
         public void StartWorker_Execute(object sender, ExecutedRoutedEventArgs e)
         {
-            //start Fibonacci worker and stop it
+            //start Fibonacci worker
             BackgroundProcessor<FibonacciProcess> worker = (BackgroundProcessor<FibonacciProcess>)e.Parameter;
             worker.Start();
         }
 
         public void CreateWorker_Execute(object sender, ExecutedRoutedEventArgs e)
         {
-            //create Fibonacci worker and stop it
-            BackgroundProcessor<FibonacciProcess> worker = (BackgroundProcessor<FibonacciProcess>)e.Parameter;
-            worker.Start();
+            //create Fibonacci worker
+            BackgroundProcessor<FibonacciProcess> worker = 
+                ProcessorsFactory.Instance.GetFibonacciProcessor(
+                    (int)FibonacciWorkerModel.FirstTerm!,
+                    (int)FibonacciWorkerModel.SecondTerm!,
+                    FibonacciWorkerModel.WorkerType);
+            FibonacciRequests.Add(worker);
+
         }
 
         #region Commands

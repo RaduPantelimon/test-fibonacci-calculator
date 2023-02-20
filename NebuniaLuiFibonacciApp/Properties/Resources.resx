@@ -145,7 +145,7 @@
     <value>Execution Mode</value>
   </data>
   <data name="RunProcessButton_Label" xml:space="preserve">
-    <value>Run Fibonacci</value>
+    <value>Create Process</value>
   </data>
   <data name="SecondTermInput_Label" xml:space="preserve">
     <value>Second Term</value>

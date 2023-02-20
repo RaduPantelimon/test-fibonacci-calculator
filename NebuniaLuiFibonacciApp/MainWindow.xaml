@@ -30,7 +30,7 @@
             <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
                             ObjectType="{x:Type s:Enum}">
                 <ObjectDataProvider.MethodParameters>
-                    <x:Type TypeName="local:WorkerType"/>
+                    <x:Type TypeName="core:ProcessorType"/>
                 </ObjectDataProvider.MethodParameters>
             </ObjectDataProvider>
 

@@ -142,7 +142,7 @@ namespace NebuniaLuiFibonacciApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Run Fibonacci.
+        ///   Looks up a localized string similar to Create Process.
         /// </summary>
         public static string RunProcessButton_Label {
             get {

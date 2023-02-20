@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NebuniaLuiFibonacci.Core;
 
-namespace NebuniaLuiFibonacciApp.Helpers
+namespace NebuniaLuiFibonacci.Core
 {
     public class FibonacciWorkerViewModel
     {
