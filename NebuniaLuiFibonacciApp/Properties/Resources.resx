@@ -138,6 +138,9 @@
   <data name="FibDataGrid_Column_SecondTerm" xml:space="preserve">
     <value>Last Term</value>
   </data>
+  <data name="FibDataGrid_Column_State" xml:space="preserve">
+    <value>Status</value>
+  </data>
   <data name="FibonacciWorkerViewModel_Name" xml:space="preserve">
     <value>FibonacciWorker</value>
   </data>

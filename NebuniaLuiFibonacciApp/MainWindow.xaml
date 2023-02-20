@@ -10,7 +10,7 @@
         xmlns:core="clr-namespace:NebuniaLuiFibonacci.Core;assembly=NebuniaLuiFibonacci"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         mc:Ignorable="d"
-        Title="Fibonacci App" Height="400" Width="800">
+        Title="Fibonacci App" Height="400" Width="900">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -68,7 +68,7 @@
             </DataGrid.RowStyle>
 
             <DataGrid.Columns>
-                <DataGridTemplateColumn Header="{x:Static props:Resources.FibDataGrid_Column_FirstTerm}" Width="*"  IsReadOnly="True">
+                <DataGridTemplateColumn Header="{x:Static props:Resources.FibDataGrid_Column_FirstTerm}" Width="2*"  IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Process.PenultimateTerm}" IsEnabled="False" 
@@ -76,7 +76,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="{x:Static props:Resources.FibDataGrid_Column_SecondTerm}" Width="*"  IsReadOnly="True">
+                <DataGridTemplateColumn Header="{x:Static props:Resources.FibDataGrid_Column_SecondTerm}" Width="1.5*"  IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Process.LastTerm}" IsEnabled="False" 
@@ -84,7 +84,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="{x:Static props:Resources.FibDataGrid_Column_OriginalFirstTerm}" Width="*"  IsReadOnly="True">
+                <DataGridTemplateColumn Header="{x:Static props:Resources.FibDataGrid_Column_OriginalFirstTerm}" Width="2*"  IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Process.OriginalFirstTerm}" IsEnabled="False" 
@@ -92,7 +92,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="{x:Static props:Resources.FibDataGrid_Column_OriginalSecondTerm}" Width="*"  IsReadOnly="True">
+                <DataGridTemplateColumn Header="{x:Static props:Resources.FibDataGrid_Column_OriginalSecondTerm}" Width="2*"  IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Process.OriginalSecondTerm}" IsEnabled="False" 
@@ -100,7 +100,15 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="{x:Static props:Resources.FibDataGrid_Column_Actions}" Width="*" IsReadOnly="True">
+                <DataGridTemplateColumn Header="{x:Static props:Resources.FibDataGrid_Column_State}" Width="2.5*"  IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Status}" IsEnabled="False" 
+                                           Style="{StaticResource BaseTextBlock}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="{x:Static props:Resources.FibDataGrid_Column_Actions}" Width="2*" IsReadOnly="True">
                     <DataGridTemplateColumn.CellStyle>
                         <Style TargetType="DataGridCell">
                             <Style.Triggers>

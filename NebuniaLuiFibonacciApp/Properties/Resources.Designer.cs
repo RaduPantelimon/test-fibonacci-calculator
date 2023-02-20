@@ -124,6 +124,15 @@ namespace NebuniaLuiFibonacciApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string FibDataGrid_Column_State {
+            get {
+                return ResourceManager.GetString("FibDataGrid_Column_State", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FibonacciWorker.
         /// </summary>
         public static string FibonacciWorkerViewModel_Name {
