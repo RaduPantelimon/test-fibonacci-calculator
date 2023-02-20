@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using NebuniaLuiFibonacci.Core;
 using NebuniaLuiFibonacciApp;
+using NebuniaLuiFibonacciApp.Properties;
 using NebuniaLuiFibonacciApp.Helpers;
 
 namespace NebuniaLuiFibonacci
@@ -46,6 +47,7 @@ namespace NebuniaLuiFibonacci
             WorkerTypeComboBox.SelectedIndex = (int)ProcessorType.Task;
         }
 
+
         public void StopWorker_Execute(object sender, ExecutedRoutedEventArgs e)
         {
             //remove Fibonacci worker and stop it
@@ -63,8 +65,9 @@ namespace NebuniaLuiFibonacci
 
         public void CreateWorker_Execute(object sender, ExecutedRoutedEventArgs e)
         {
-            //create Fibonacci worker
-            BackgroundProcessor<FibonacciProcess> worker = 
+            if (!FibonacciWorkerModel.IsValid)
+                throw new Exception(NebuniaLuiFibonacciApp.Properties.Resources.ExceptionMessage_FibonacciModelNotValid);
+            BackgroundProcessor <FibonacciProcess> worker = 
                 ProcessorsFactory.Instance.GetFibonacciProcessor(
                     (int)FibonacciWorkerModel.FirstTerm!,
                     (int)FibonacciWorkerModel.SecondTerm!,

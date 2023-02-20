@@ -120,6 +120,9 @@
   <data name="ErrorMessage_InvalidIntValue" xml:space="preserve">
     <value>Value must be a valid integer!</value>
   </data>
+  <data name="ExceptionMessage_FibonacciModelNotValid" xml:space="preserve">
+    <value>The properties of the current Fibonacci Worker are not Valid</value>
+  </data>
   <data name="FibDataGrid_Column_Actions" xml:space="preserve">
     <value>Actions</value>
   </data>
@@ -134,6 +137,9 @@
   </data>
   <data name="FibDataGrid_Column_SecondTerm" xml:space="preserve">
     <value>Last Term</value>
+  </data>
+  <data name="FibonacciWorkerViewModel_Name" xml:space="preserve">
+    <value>FibonacciWorker</value>
   </data>
   <data name="FirstTermInput_Label" xml:space="preserve">
     <value>First Term</value>

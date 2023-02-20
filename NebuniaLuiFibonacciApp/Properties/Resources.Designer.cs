@@ -70,6 +70,15 @@ namespace NebuniaLuiFibonacciApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The properties of the current Fibonacci Worker are not Valid.
+        /// </summary>
+        public static string ExceptionMessage_FibonacciModelNotValid {
+            get {
+                return ResourceManager.GetString("ExceptionMessage_FibonacciModelNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Actions.
         /// </summary>
         public static string FibDataGrid_Column_Actions {
@@ -111,6 +120,15 @@ namespace NebuniaLuiFibonacciApp.Properties {
         public static string FibDataGrid_Column_SecondTerm {
             get {
                 return ResourceManager.GetString("FibDataGrid_Column_SecondTerm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FibonacciWorker.
+        /// </summary>
+        public static string FibonacciWorkerViewModel_Name {
+            get {
+                return ResourceManager.GetString("FibonacciWorkerViewModel_Name", resourceCulture);
             }
         }
         

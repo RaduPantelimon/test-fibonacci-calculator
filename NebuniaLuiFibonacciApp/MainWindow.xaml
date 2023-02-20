@@ -10,7 +10,7 @@
         xmlns:core="clr-namespace:NebuniaLuiFibonacci.Core;assembly=NebuniaLuiFibonacci"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         mc:Ignorable="d"
-        Title="Fibonacci App" Height="325" Width="750">
+        Title="Fibonacci App" Height="400" Width="800">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -33,9 +33,6 @@
                     <x:Type TypeName="core:ProcessorType"/>
                 </ObjectDataProvider.MethodParameters>
             </ObjectDataProvider>
-
-            <local:ErrorCollectionToVisibility x:Key="ToVisibility" />
-            
         </ResourceDictionary>
     </Window.Resources>
     <Grid>
@@ -119,25 +116,13 @@
         </DataGrid>
         <StackPanel Grid.Row="1" Grid.Column="1" Name="WorkerCreationPanel"  Orientation="Vertical" Width="Auto" Margin="5 5">
             <TextBlock Text="{x:Static props:Resources.FirstTermInput_Label}" Style="{StaticResource InputFieldLabel}" />
-            <TextBox Name="FirstTermTextBox" Style="{StaticResource InputField}">
-                <TextBox.Text>
-                    <Binding Path="FirstTerm" UpdateSourceTrigger="PropertyChanged"  >
-                        <Binding.ValidationRules>
-                            <local:IntegerValidationRule x:Name="FirstTermValidation" ValidatesOnTargetUpdated="True"/>
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>
-            </TextBox>
+            <TextBox Name="FirstTermTextBox" Style="{StaticResource InputField}"
+                     Text="{Binding FirstTerm, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" />
+
             <TextBlock Text="{x:Static props:Resources.SecondTermInput_Label}" Style="{StaticResource InputFieldLabel}" />
-            <TextBox Name="SecondTermTextBox" Style="{StaticResource InputField}">
-                <TextBox.Text>
-                    <Binding Path="SecondTerm" UpdateSourceTrigger="PropertyChanged" >
-                        <Binding.ValidationRules>
-                            <local:IntegerValidationRule x:Name="SecondTermValidation" ValidatesOnTargetUpdated="True"/>
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>
-            </TextBox>
+            <TextBox Name="SecondTermTextBox" Style="{StaticResource InputField}"
+                     Text="{Binding SecondTerm, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" />
+
             <TextBlock Text="{x:Static props:Resources.ProcessorSelectionInput_Label}" Style="{StaticResource InputFieldLabel}" />
             <ComboBox Name="WorkerTypeComboBox" ItemsSource="{Binding Source={StaticResource dataFromEnum}}"
                 SelectedItem="{Binding Path=CurrentEffectStyle}"  Style="{StaticResource BasicComboBox}" />
@@ -146,7 +131,6 @@
                     Content="{x:Static props:Resources.RunProcessButton_Label}">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource SaveButton}">
-                        <Setter Property="Content" Value=""/>
                         <Setter Property="IsEnabled" Value="false" />
                         <Style.Triggers>
                             <MultiDataTrigger>
