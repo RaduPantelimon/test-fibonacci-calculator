@@ -2,11 +2,14 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <SolidColorBrush x:Key="DefaultForeground" Color="#696969"/>
+    <SolidColorBrush x:Key="DefaultForeground" Color="#595959"/>
     <SolidColorBrush x:Key="ButtonMouseOverBrush" Color="#FFE7E7E7"/>
     <SolidColorBrush x:Key="ButtonMouseOverForeground" Color="#000"/>
     <SolidColorBrush x:Key="ButtonDefaultBrush" Color="#fff"/>
     <SolidColorBrush x:Key="ButtonBorderBrush" Color="#ccc"/>
+
+    <SolidColorBrush x:Key="ButtonDisabledBrush" Color="#ddd"/>
+    <SolidColorBrush x:Key="ButtonDisabledForeground" Color="#aaa"/>
 
     <SolidColorBrush x:Key="FocusedDataGridRowBrush" Color="LightSkyBlue"/>
     <SolidColorBrush x:Key="DefaultDataGridRowBrush" Color="LightYellow"/>
@@ -84,6 +87,10 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Background" Value="{StaticResource ButtonMouseOverBrush}"/>
                             <Setter Property="Foreground" Value="{StaticResource ButtonMouseOverForeground}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="TextElement.Foreground" Value="{StaticResource ButtonDisabledForeground}"/>
+                            <Setter Property="Background" Value="{StaticResource ButtonDisabledBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
