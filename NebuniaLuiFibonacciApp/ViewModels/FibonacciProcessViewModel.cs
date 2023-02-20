@@ -9,7 +9,7 @@ using NebuniaLuiFibonacciApp.Properties;
 
 namespace NebuniaLuiFibonacciApp
 {
-    public class FibonacciWorkerViewModel: FormViewModelBase
+    public class FibonacciProcessViewModel: FormViewModelBase
     {
 
         private int? firstTerm;

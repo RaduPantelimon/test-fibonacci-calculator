@@ -27,24 +27,16 @@ namespace NebuniaLuiFibonacci
     public partial class MainWindow : Window
     {
 
-        public ObservableCollection<BackgroundProcessor<FibonacciProcess>> FibonacciRequests { get; set; } = new();
-        protected FibonacciProcessViewModel FibonacciWorkerModel { get; }
+        MainFormViewModel ViewModel { get; set; }
 
         public MainWindow()
         {
-            FibonacciRequests.Add(new TaskProcessor<FibonacciProcess>(new FibonacciProcess(2, 3)));
-            FibonacciRequests.Add(new TaskProcessor<FibonacciProcess>(new FibonacciProcess(5, 8)));
-            FibonacciRequests.Add(new ThreadProcessor<FibonacciProcess>(new FibonacciProcess(1, 2)));
-            FibonacciRequests.Add(new ThreadProcessor<FibonacciProcess>(new FibonacciProcess(1, 1)));
-
             SetCommandBindings();
             InitializeComponent();
 
-            FibonacciWorkerModel = new FibonacciProcessViewModel();
-            WorkerCreationPanel.DataContext = FibonacciWorkerModel;
+            ViewModel = new MainFormViewModel();
 
-            //Set Default value for ComboBox
-            WorkerTypeComboBox.SelectedIndex = (int)ProcessorType.Task;
+            DataContext = ViewModel;
         }
 
 
@@ -53,7 +45,7 @@ namespace NebuniaLuiFibonacci
             //remove Fibonacci worker and stop it
             BackgroundProcessor<FibonacciProcess> worker = (BackgroundProcessor<FibonacciProcess>)e.Parameter;
             worker.Stop();
-            FibonacciRequests.Remove(worker);
+            ViewModel.LiveFibonacciProcesses.Remove(worker);
         }
         
         public void StartWorker_Execute(object sender, ExecutedRoutedEventArgs e)
@@ -65,14 +57,15 @@ namespace NebuniaLuiFibonacci
 
         public void CreateWorker_Execute(object sender, ExecutedRoutedEventArgs e)
         {
-            if (!FibonacciWorkerModel.IsValid)
+            if (!ViewModel.FibonacciProcess.IsValid)
                 throw new Exception(NebuniaLuiFibonacciApp.Properties.Resources.ExceptionMessage_FibonacciModelNotValid);
             BackgroundProcessor <FibonacciProcess> worker = 
                 ProcessorsFactory.Instance.GetFibonacciProcessor(
-                    (int)FibonacciWorkerModel.FirstTerm!,
-                    (int)FibonacciWorkerModel.SecondTerm!,
-                    FibonacciWorkerModel.WorkerType);
-            FibonacciRequests.Add(worker);
+                    (int)ViewModel.FibonacciProcess.FirstTerm!,
+                    (int)ViewModel.FibonacciProcess.SecondTerm!,
+                    ViewModel.FibonacciProcess.WorkerType);
+
+            ViewModel.LiveFibonacciProcesses.Add(worker);
 
         }
 
@@ -86,6 +79,7 @@ namespace NebuniaLuiFibonacci
             StopWorkerCommand = new RoutedCommand();
             StartWorkerCommand = new RoutedCommand();
             CreateWorkerCommand = new RoutedCommand();
+
             CommandBindings.Add(new CommandBinding(StopWorkerCommand, StopWorker_Execute));
             CommandBindings.Add(new CommandBinding(StartWorkerCommand, StartWorker_Execute));
             CommandBindings.Add(new CommandBinding(CreateWorkerCommand, CreateWorker_Execute));

@@ -48,7 +48,7 @@
             <TextBlock Text="{x:Static props:Resources.MainWindow_Header}" Style="{StaticResource HeaderTextBlock}" />
         </StackPanel>
 
-        <DataGrid  Grid.Row="1" Grid.Column="0" ItemsSource="{Binding FibonacciRequests,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+        <DataGrid  Grid.Row="1" Grid.Column="0" ItemsSource="{Binding LiveFibonacciProcesses,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                     Style="{StaticResource BasicGrid}" MaxHeight="275" Width="Auto"  Margin="10 15"
                    SelectionMode="Single" AutoGenerateColumns="False" Focusable="False" >
 
@@ -114,7 +114,7 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <StackPanel Grid.Row="1" Grid.Column="1" Name="WorkerCreationPanel"  Orientation="Vertical" Width="Auto" Margin="5 5">
+        <StackPanel Grid.Row="1" Grid.Column="1" DataContext="{Binding FibonacciProcess}"  Orientation="Vertical" Width="Auto" Margin="5 5">
             <TextBlock Text="{x:Static props:Resources.FirstTermInput_Label}" Style="{StaticResource InputFieldLabel}" />
             <TextBox Name="FirstTermTextBox" Style="{StaticResource InputField}"
                      Text="{Binding FirstTerm, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" />
@@ -125,8 +125,8 @@
 
             <TextBlock Text="{x:Static props:Resources.ProcessorSelectionInput_Label}" Style="{StaticResource InputFieldLabel}" />
             <ComboBox Name="WorkerTypeComboBox" ItemsSource="{Binding Source={StaticResource dataFromEnum}}"
-                SelectedItem="{Binding Path=CurrentEffectStyle}"  Style="{StaticResource BasicComboBox}" />
-
+                SelectedItem="{Binding WorkerType}"  Style="{StaticResource BasicComboBox}" />
+            
             <Button Command="{Binding CreateWorkerCommand, ElementName=ResWindow}" CommandParameter="{Binding}"
                     Content="{x:Static props:Resources.RunProcessButton_Label}">
                 <Button.Style>
