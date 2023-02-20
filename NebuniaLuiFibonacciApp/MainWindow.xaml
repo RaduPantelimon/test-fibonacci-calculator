@@ -17,13 +17,15 @@
                 <ResourceDictionary Source="Themes/Generic.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <!--These 2 templates are basic, but they will eventually contain different sets of actions and a more complex layout-->
-            <DataTemplate x:Key="RunningTaskActions">
-                <Button Command="{Binding StopWorkerCommand, ElementName=ResWindow}" CommandParameter="{Binding}"
+            <DataTemplate x:Key="RunningProcessActions">
+                <Button Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid},
+                                Path=DataContext.StopWorkerCommand}"  CommandParameter="{Binding}"
                         Style="{StaticResource GridButton}"
                         Content="{x:Static props:Resources.StopTaskButton_Text}" />
             </DataTemplate>
-            <DataTemplate x:Key="UnactivatedTaskActions">
-                <Button Command="{Binding StartWorkerCommand, ElementName=ResWindow}" CommandParameter="{Binding}"
+            <DataTemplate x:Key="NotStartedProcessActions">
+                <Button Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid},
+                                Path=DataContext.StartWorkerCommand}"  CommandParameter="{Binding}"
                         Style="{StaticResource GridButton}"
                         Content="{x:Static props:Resources.StartTaskButton_Text}" />
             </DataTemplate>
@@ -103,10 +105,10 @@
                         <Style TargetType="DataGridCell">
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding Path=Status}" Value="{x:Static core:ProcessorState.Running}">
-                                    <Setter Property="ContentTemplate" Value="{StaticResource RunningTaskActions}" />
+                                    <Setter Property="ContentTemplate" Value="{StaticResource RunningProcessActions}" />
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding Path=Status}" Value="{x:Static core:ProcessorState.WaitingForActivation}">
-                                    <Setter Property="ContentTemplate" Value="{StaticResource UnactivatedTaskActions}" />
+                                    <Setter Property="ContentTemplate" Value="{StaticResource NotStartedProcessActions}" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
@@ -114,20 +116,22 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <StackPanel Grid.Row="1" Grid.Column="1" DataContext="{Binding FibonacciProcess}"  Orientation="Vertical" Width="Auto" Margin="5 5">
-            <TextBlock Text="{x:Static props:Resources.FirstTermInput_Label}" Style="{StaticResource InputFieldLabel}" />
-            <TextBox Name="FirstTermTextBox" Style="{StaticResource InputField}"
-                     Text="{Binding FirstTerm, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" />
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" Width="Auto" Margin="5 5">
+            <StackPanel DataContext="{Binding FibonacciProcess}"  Orientation="Vertical" Width="Auto">
 
-            <TextBlock Text="{x:Static props:Resources.SecondTermInput_Label}" Style="{StaticResource InputFieldLabel}" />
-            <TextBox Name="SecondTermTextBox" Style="{StaticResource InputField}"
-                     Text="{Binding SecondTerm, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Text="{x:Static props:Resources.FirstTermInput_Label}" Style="{StaticResource InputFieldLabel}" />
+                <TextBox Name="FirstTermTextBox" Style="{StaticResource InputField}"
+                         Text="{Binding FirstTerm, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" />
 
-            <TextBlock Text="{x:Static props:Resources.ProcessorSelectionInput_Label}" Style="{StaticResource InputFieldLabel}" />
-            <ComboBox Name="WorkerTypeComboBox" ItemsSource="{Binding Source={StaticResource dataFromEnum}}"
-                SelectedItem="{Binding WorkerType}"  Style="{StaticResource BasicComboBox}" />
-            
-            <Button Command="{Binding CreateWorkerCommand, ElementName=ResWindow}" CommandParameter="{Binding}"
+                <TextBlock Text="{x:Static props:Resources.SecondTermInput_Label}" Style="{StaticResource InputFieldLabel}" />
+                <TextBox Name="SecondTermTextBox" Style="{StaticResource InputField}"
+                         Text="{Binding SecondTerm, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" />
+
+                <TextBlock Text="{x:Static props:Resources.ProcessorSelectionInput_Label}" Style="{StaticResource InputFieldLabel}" />
+                <ComboBox Name="WorkerTypeComboBox" ItemsSource="{Binding Source={StaticResource dataFromEnum}}"
+                    SelectedItem="{Binding WorkerType}"  Style="{StaticResource BasicComboBox}" />
+            </StackPanel>
+            <Button Command="{Binding CreateWorkerCommand}"
                     Content="{x:Static props:Resources.RunProcessButton_Label}">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource SaveButton}">

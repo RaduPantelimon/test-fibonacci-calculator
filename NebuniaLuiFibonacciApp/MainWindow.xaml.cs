@@ -26,64 +26,10 @@ namespace NebuniaLuiFibonacci
     /// </summary>
     public partial class MainWindow : Window
     {
-
-        MainFormViewModel ViewModel { get; set; }
-
         public MainWindow()
         {
-            SetCommandBindings();
             InitializeComponent();
-
-            ViewModel = new MainFormViewModel();
-
-            DataContext = ViewModel;
+            DataContext = new MainFormViewModel();
         }
-
-
-        public void StopWorker_Execute(object sender, ExecutedRoutedEventArgs e)
-        {
-            //remove Fibonacci worker and stop it
-            BackgroundProcessor<FibonacciProcess> worker = (BackgroundProcessor<FibonacciProcess>)e.Parameter;
-            worker.Stop();
-            ViewModel.LiveFibonacciProcesses.Remove(worker);
-        }
-        
-        public void StartWorker_Execute(object sender, ExecutedRoutedEventArgs e)
-        {
-            //start Fibonacci worker
-            BackgroundProcessor<FibonacciProcess> worker = (BackgroundProcessor<FibonacciProcess>)e.Parameter;
-            worker.Start();
-        }
-
-        public void CreateWorker_Execute(object sender, ExecutedRoutedEventArgs e)
-        {
-            if (!ViewModel.FibonacciProcess.IsValid)
-                throw new Exception(NebuniaLuiFibonacciApp.Properties.Resources.ExceptionMessage_FibonacciModelNotValid);
-            BackgroundProcessor <FibonacciProcess> worker = 
-                ProcessorsFactory.Instance.GetFibonacciProcessor(
-                    (int)ViewModel.FibonacciProcess.FirstTerm!,
-                    (int)ViewModel.FibonacciProcess.SecondTerm!,
-                    ViewModel.FibonacciProcess.WorkerType);
-
-            ViewModel.LiveFibonacciProcesses.Add(worker);
-
-        }
-
-        #region Commands
-        public ICommand StopWorkerCommand { get; set; }
-        public ICommand StartWorkerCommand { get; set; }
-        public ICommand CreateWorkerCommand { get; set; }
-
-        public void SetCommandBindings()
-        {
-            StopWorkerCommand = new RoutedCommand();
-            StartWorkerCommand = new RoutedCommand();
-            CreateWorkerCommand = new RoutedCommand();
-
-            CommandBindings.Add(new CommandBinding(StopWorkerCommand, StopWorker_Execute));
-            CommandBindings.Add(new CommandBinding(StartWorkerCommand, StartWorker_Execute));
-            CommandBindings.Add(new CommandBinding(CreateWorkerCommand, CreateWorker_Execute));
-        }
-        #endregion
     }
 }
