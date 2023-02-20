@@ -13,20 +13,19 @@ namespace NebuniaLuiFibonacci.Core
         public int OriginalFirstTerm { get; }
         public int OriginalSecondTerm { get; }
 
-        private readonly object _penultimateTermLock = new object();
-        private readonly object _lastTermLock = new object();
+        private readonly object _termLock = new object();
 
         int _penultimateTerm;
         public int PenultimateTerm
         {
             get
             {
-                lock (_penultimateTermLock)
+                lock (_termLock)
                     return _penultimateTerm;
             }
             protected set
             {
-                lock (_penultimateTermLock)
+                lock (_termLock)
                     _penultimateTerm = value;
 
                 OnPropertyChanged();
@@ -37,12 +36,12 @@ namespace NebuniaLuiFibonacci.Core
         {
             get
             {
-                lock (_lastTermLock)
+                lock (_termLock)
                     return _lastTerm;
             }
             protected set
             {
-                lock (_lastTermLock)
+                lock (_termLock)
                     _lastTerm = value;
 
                 OnPropertyChanged();
@@ -59,8 +58,11 @@ namespace NebuniaLuiFibonacci.Core
         {
             //calculate new Fibonacci element and update terms
             int sum = PenultimateTerm + LastTerm;
-            PenultimateTerm = LastTerm;
-            LastTerm = sum;
+            lock(_termLock) //we don't want for a consumer to retrieve missmatched terms by accident
+            {
+                PenultimateTerm = LastTerm;
+                LastTerm = sum;
+            }
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
