@@ -97,6 +97,15 @@ namespace NebuniaLuiFibonacciApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        public static string FibDataGrid_Column_Name {
+            get {
+                return ResourceManager.GetString("FibDataGrid_Column_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Orig. First Term.
         /// </summary>
         public static string FibDataGrid_Column_OriginalFirstTerm {

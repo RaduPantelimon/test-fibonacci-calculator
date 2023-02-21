@@ -126,6 +126,12 @@
   <data name="Exception_StopWorkerError" xml:space="preserve">
     <value>Cannot stop Worker that is not currently running</value>
   </data>
+  <data name="TaskProcessor_Name" xml:space="preserve">
+    <value>Task</value>
+  </data>
+  <data name="ThreadProcessor_Name" xml:space="preserve">
+    <value>Thread</value>
+  </data>
   <data name="Tick" xml:space="preserve">
     <value>1000</value>
   </data>

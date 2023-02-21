@@ -35,9 +35,11 @@ namespace NebuniaLuiFibonacci.Core
 
         protected CancellationTokenSource CancellationTokenSource {get;}
         public T Process { get; }
+        public string Name { get; }
 
-        public BackgroundProcessor(T process)
+        public BackgroundProcessor(T process, string name)
         {
+            Name = name;
             Process = process;
             CancellationTokenSource = new CancellationTokenSource();
             Status = ProcessorState.Unactivated;
@@ -64,7 +66,14 @@ namespace NebuniaLuiFibonacci.Core
             Status = ProcessorState.Canceled;
             CancellationTokenSource.Cancel();
         }
-            
+
+        public virtual bool CanExecuteNextStep 
+            => Process.CanExecuteNextStep && !CancellationTokenSource.IsCancellationRequested;
+
+        public virtual void PostProcessingLogic()
+        {
+            if (!Process.CanExecuteNextStep) Status = ProcessorState.Finished;
+        }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 

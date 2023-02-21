@@ -60,7 +60,7 @@ namespace NebuniaLuiFibonacci.Core
             {
                 if (PenultimateTerm > 0 && LastTerm > 0 && int.MaxValue - LastTerm < PenultimateTerm)
                     return false;
-                if (PenultimateTerm < 0 && LastTerm < 0 && int.MinValue - LastTerm < PenultimateTerm)
+                if (PenultimateTerm < 0 && LastTerm < 0 && int.MinValue - LastTerm > PenultimateTerm)
                     return false;
 
                 return true;

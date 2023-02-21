@@ -129,6 +129,9 @@
   <data name="FibDataGrid_Column_FirstTerm" xml:space="preserve">
     <value>Penultimate Term</value>
   </data>
+  <data name="FibDataGrid_Column_Name" xml:space="preserve">
+    <value>Type</value>
+  </data>
   <data name="FibDataGrid_Column_OriginalFirstTerm" xml:space="preserve">
     <value>Orig. First Term</value>
   </data>

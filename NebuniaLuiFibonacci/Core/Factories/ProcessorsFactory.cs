@@ -34,7 +34,7 @@ namespace NebuniaLuiFibonacci.Core
             return type switch
             {
                 ProcessorType.Task => new TaskProcessor<FibonacciProcess>(fibonacciProcess),
-                ProcessorType.Thread => new TaskProcessor<FibonacciProcess>(fibonacciProcess),
+                ProcessorType.Thread => new ThreadProcessor<FibonacciProcess>(fibonacciProcess),
                 _ => throw new InvalidOperationException()
             };
         }

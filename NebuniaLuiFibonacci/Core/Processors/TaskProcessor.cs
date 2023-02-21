@@ -11,25 +11,31 @@ namespace NebuniaLuiFibonacci.Core
     public class TaskProcessor<T> : BackgroundProcessor<T> where T : IMultiStepProcess
     {
 
-        public TaskProcessor(T process) : base(process)
+        public TaskProcessor(T process) : base(process, Resources.TaskProcessor_Name)
         {
         }
 
 
-        protected override void BeginProcess() => _ = ExecuteProcessStepsAsync();
+        //protected override void BeginProcess() => _ = ExecuteProcessStepsAsync();
 
-        protected async Task ExecuteProcessStepsAsync()
+        protected override void BeginProcess()
         {
-            //jump on another Thread ASAP - relevant if the ExecuteNextSequence is really computationallyIntensive
-            await Task.Yield();
+            //via Default task scheduler we "lose the SynchronizationContext" and we jump on another Thread ASAP -
+            //relevant if the ExecuteNext is really computationallyIntensive
+            Task.Factory.StartNew(ExecuteProcessStepsAsync, 
+                CancellationTokenSource.Token, 
+                TaskCreationOptions.None, 
+                TaskScheduler.Default);
+        }
 
-            while (Process.CanExecuteNextStep && !CancellationTokenSource.IsCancellationRequested)
+        protected async void ExecuteProcessStepsAsync()
+        {
+            while (this.CanExecuteNextStep)
             {
-                
                 Process.ExecuteNext();
                 await Task.Delay(TickDelay, CancellationTokenSource.Token).ConfigureAwait(false);
             }
-            if (!Process.CanExecuteNextStep) Status = ProcessorState.Finished;
+            PostProcessingLogic();
         }
     }
 }

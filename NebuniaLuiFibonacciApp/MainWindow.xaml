@@ -75,6 +75,14 @@
             </DataGrid.RowStyle>
 
             <DataGrid.Columns>
+                <DataGridTemplateColumn Header="{x:Static props:Resources.FibDataGrid_Column_Name}" Width="*"  IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" IsEnabled="False" 
+                                           Style="{StaticResource BaseTextBlock}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="{x:Static props:Resources.FibDataGrid_Column_FirstTerm}" Width="2*"  IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

@@ -88,6 +88,24 @@ namespace NebuniaLuiFibonacci.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Task.
+        /// </summary>
+        internal static string TaskProcessor_Name {
+            get {
+                return ResourceManager.GetString("TaskProcessor_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thread.
+        /// </summary>
+        internal static string ThreadProcessor_Name {
+            get {
+                return ResourceManager.GetString("ThreadProcessor_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 1000.
         /// </summary>
         internal static string Tick {

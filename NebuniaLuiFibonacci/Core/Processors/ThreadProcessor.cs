@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NebuniaLuiFibonacci.Properties;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace NebuniaLuiFibonacci.Core
 {
     public class ThreadProcessor<T> : BackgroundProcessor<T> where T : IMultiStepProcess
     {
-        public ThreadProcessor(T process) : base(process)
+        public ThreadProcessor(T process) : base(process, Resources.ThreadProcessor_Name)
         {
         }
 
@@ -16,12 +17,12 @@ namespace NebuniaLuiFibonacci.Core
         {
             var thread = new Thread(() =>
             {
-                while (Process.CanExecuteNextStep && !CancellationTokenSource.IsCancellationRequested)
+                while (this.CanExecuteNextStep)
                 {
                     Process.ExecuteNext();
                     CancellationTokenSource.Token.WaitHandle.WaitOne(TickDelay);
                 }
-                if (!Process.CanExecuteNextStep) Status = ProcessorState.Finished;
+                PostProcessingLogic();
             });
             thread.IsBackground = true;
             thread.Start();
