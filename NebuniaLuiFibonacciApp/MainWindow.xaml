@@ -30,8 +30,10 @@
                         Content="{x:Static props:Resources.StartTaskButton_Text}" />
             </DataTemplate>
             <DataTemplate x:Key="FinishedProcessActions">
-                <Label Style="{StaticResource GridPlaceHolderLabel}" 
-                       Content="{x:Static props:Resources.NoActionsAvailableLabel_Text}" />
+                <Button Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid},
+                                Path=DataContext.RemoveWorkerCommand}"  CommandParameter="{Binding}"
+                        Style="{StaticResource GridButton}"
+                        Content="{x:Static props:Resources.RemoveTaskButton_Text}" />
             </DataTemplate>
             <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
                             ObjectType="{x:Type s:Enum}">
@@ -134,6 +136,9 @@
                                     <Setter Property="ContentTemplate" Value="{StaticResource NotStartedProcessActions}" />
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding Path=Status}" Value="{x:Static core:ProcessorState.Finished}">
+                                    <Setter Property="ContentTemplate" Value="{StaticResource FinishedProcessActions}" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Path=Status}" Value="{x:Static core:ProcessorState.Canceled}">
                                     <Setter Property="ContentTemplate" Value="{StaticResource FinishedProcessActions}" />
                                 </DataTrigger>
                             </Style.Triggers>

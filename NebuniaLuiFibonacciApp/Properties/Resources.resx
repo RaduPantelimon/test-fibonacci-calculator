@@ -159,6 +159,9 @@
   <data name="ProcessorSelectionInput_Label" xml:space="preserve">
     <value>Execution Mode</value>
   </data>
+  <data name="RemoveTaskButton_Text" xml:space="preserve">
+    <value>Remove</value>
+  </data>
   <data name="RunProcessButton_Label" xml:space="preserve">
     <value>Create Process</value>
   </data>
@@ -166,9 +169,9 @@
     <value>Second Term</value>
   </data>
   <data name="StartTaskButton_Text" xml:space="preserve">
-    <value>Start Task</value>
+    <value>Start</value>
   </data>
   <data name="StopTaskButton_Text" xml:space="preserve">
-    <value>Stop Task</value>
+    <value>Stop</value>
   </data>
 </root>

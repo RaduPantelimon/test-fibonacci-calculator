@@ -15,9 +15,6 @@ namespace NebuniaLuiFibonacci.Core
         {
         }
 
-
-        //protected override void BeginProcess() => _ = ExecuteProcessStepsAsync();
-
         protected override void BeginProcess()
         {
             //via Default task scheduler we "lose the SynchronizationContext" and we jump on another Thread ASAP -
@@ -28,7 +25,7 @@ namespace NebuniaLuiFibonacci.Core
                 TaskScheduler.Default);
         }
 
-        protected async void ExecuteProcessStepsAsync()
+        protected async Task ExecuteProcessStepsAsync()
         {
             while (this.CanExecuteNextStep)
             {

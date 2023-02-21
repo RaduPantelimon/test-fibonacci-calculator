@@ -21,14 +21,9 @@ namespace NebuniaLuiFibonacciApp
             LiveFibonacciProcesses = new();
             FibonacciProcess = new FibonacciProcessViewModel();
 
-            //TEST DATA
-            LiveFibonacciProcesses.Add(new TaskProcessor<FibonacciProcess>(new FibonacciProcess(2_000_000, 3_000_000)));
-            LiveFibonacciProcesses.Add(new TaskProcessor<FibonacciProcess>(new FibonacciProcess(5, 8)));
-            LiveFibonacciProcesses.Add(new ThreadProcessor<FibonacciProcess>(new FibonacciProcess(1, 2)));
-            LiveFibonacciProcesses.Add(new ThreadProcessor<FibonacciProcess>(new FibonacciProcess(1, 1)));
-
             StartWorkerCommand = new DelegateCommand<BackgroundProcessor<FibonacciProcess>>(StartWorker_Execute);
             StopWorkerCommand = new DelegateCommand<BackgroundProcessor<FibonacciProcess>>(StopWorker_Execute);
+            RemoveWorkerCommand = new DelegateCommand<BackgroundProcessor<FibonacciProcess>>(RemoveWorker_Execute);
             CreateWorkerCommand = new DelegateCommand(CreateWorker_Execute);
         }
 
@@ -36,12 +31,18 @@ namespace NebuniaLuiFibonacciApp
 
         public ICommand CreateWorkerCommand { get; protected set; }
         public ICommand StopWorkerCommand { get; protected set; }
+        public ICommand RemoveWorkerCommand { get; protected set; }
         public ICommand StartWorkerCommand { get; protected set; }
 
         public void StopWorker_Execute(BackgroundProcessor<FibonacciProcess> worker)
         {
-            //remove Fibonacci worker and stop it
+            //stop Fibonacci worker
             worker.Stop();
+        }
+
+        public void RemoveWorker_Execute(BackgroundProcessor<FibonacciProcess> worker)
+        {
+            //remove Fibonacci worker from Table
             LiveFibonacciProcesses.Remove(worker);
         }
 

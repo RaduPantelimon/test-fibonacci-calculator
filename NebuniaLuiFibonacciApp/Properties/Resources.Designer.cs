@@ -187,6 +187,15 @@ namespace NebuniaLuiFibonacciApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remove.
+        /// </summary>
+        public static string RemoveTaskButton_Text {
+            get {
+                return ResourceManager.GetString("RemoveTaskButton_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create Process.
         /// </summary>
         public static string RunProcessButton_Label {
@@ -205,7 +214,7 @@ namespace NebuniaLuiFibonacciApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Start Task.
+        ///   Looks up a localized string similar to Start.
         /// </summary>
         public static string StartTaskButton_Text {
             get {
@@ -214,7 +223,7 @@ namespace NebuniaLuiFibonacciApp.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stop Task.
+        ///   Looks up a localized string similar to Stop.
         /// </summary>
         public static string StopTaskButton_Text {
             get {
