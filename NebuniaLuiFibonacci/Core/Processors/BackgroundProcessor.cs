@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace NebuniaLuiFibonacci.Core
 {
-    public abstract class BackgroundProcessor<T>:ISequentialProcessor<T>, INotifyPropertyChanged where T: IMultiStepProcess
+    public abstract class BackgroundProcessor<T>:IMultiStepProcessor<T>, INotifyPropertyChanged where T: IMultiStepProcess
     {
         protected static TimeSpan TickDelay { get; } = TimeSpan.FromMilliseconds(int.Parse(Resources.Tick));
 

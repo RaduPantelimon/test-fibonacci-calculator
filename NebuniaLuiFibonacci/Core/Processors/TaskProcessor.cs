@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace NebuniaLuiFibonacci.Core
 {
-    public class TaskProcessor<T> : BackgroundProcessor<T> where T : IMultiStepProcess
+    public class TaskProcessor<T> : BackgroundProcessor<T> where T : IMultiStepProcessable
     {
 
         public TaskProcessor(T process) : base(process, Resources.TaskProcessor_Name)

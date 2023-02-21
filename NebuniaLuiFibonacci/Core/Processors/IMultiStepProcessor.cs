@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NebuniaLuiFibonacci.Core
 {
-    public interface ISequentialProcessor<T> where T: IMultiStepProcess
+    public interface IMultiStepProcessor<T> where T: IMultiStepProcess
     {
         T Process { get;}
         ProcessorState Status { get; }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace NebuniaLuiFibonacci.Core
 {
-    public class FibonacciProcess: IMultiStepProcess, INotifyPropertyChanged
+    public class FibonacciProcess: MultiStepProcess
     {
         public int OriginalFirstTerm { get; }
         public int OriginalSecondTerm { get; }
@@ -54,7 +54,7 @@ namespace NebuniaLuiFibonacci.Core
             LastTerm = OriginalSecondTerm = term2;
         }
 
-        public bool CanExecuteNextStep
+        public override bool CanExecuteNextStep
         {
             get
             {
@@ -68,7 +68,7 @@ namespace NebuniaLuiFibonacci.Core
         }
         
 
-        public void ExecuteNext()
+        public override void ExecuteNext()
         {
             //calculate new Fibonacci element and update terms
             int sum = checked(PenultimateTerm + LastTerm); //throw exception we overflow
@@ -77,13 +77,6 @@ namespace NebuniaLuiFibonacci.Core
                 PenultimateTerm = LastTerm;
                 LastTerm = sum;
             }
-        }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
