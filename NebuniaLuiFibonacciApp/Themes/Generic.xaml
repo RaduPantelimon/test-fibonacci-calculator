@@ -13,6 +13,7 @@
 
     <SolidColorBrush x:Key="FocusedDataGridRowBrush" Color="LightSkyBlue"/>
     <SolidColorBrush x:Key="DefaultDataGridRowBrush" Color="LightYellow"/>
+    <SolidColorBrush x:Key="FinishedDataGridRowBrush" Color="LightSalmon"/>
     
     <Style TargetType="{x:Type Control}" x:Key="BaseEmphasizedStyle">
         <Setter Property="FontWeight" Value="DemiBold" />
@@ -99,6 +100,11 @@
     </Style>
 
     <Style TargetType="{x:Type Button}" x:Key="GridButton" BasedOn="{StaticResource BasicButton}">
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="Padding" Value="10,5" />
+    </Style>
+
+    <Style TargetType="{x:Type Label}" x:Key="GridPlaceHolderLabel" BasedOn="{StaticResource BaseEmphasizedStyle}">
         <Setter Property="Margin" Value="5" />
         <Setter Property="Padding" Value="10,5" />
     </Style>

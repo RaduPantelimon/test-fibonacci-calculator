@@ -150,6 +150,9 @@
   <data name="MainWindow_Header" xml:space="preserve">
     <value>Demo Application</value>
   </data>
+  <data name="NoActionsAvailableLabel_Text" xml:space="preserve">
+    <value>None</value>
+  </data>
   <data name="ProcessorSelectionInput_Label" xml:space="preserve">
     <value>Execution Mode</value>
   </data>

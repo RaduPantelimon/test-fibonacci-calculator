@@ -29,6 +29,10 @@
                         Style="{StaticResource GridButton}"
                         Content="{x:Static props:Resources.StartTaskButton_Text}" />
             </DataTemplate>
+            <DataTemplate x:Key="FinishedProcessActions">
+                <Label Style="{StaticResource GridPlaceHolderLabel}" 
+                       Content="{x:Static props:Resources.NoActionsAvailableLabel_Text}" />
+            </DataTemplate>
             <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
                             ObjectType="{x:Type s:Enum}">
                 <ObjectDataProvider.MethodParameters>
@@ -62,6 +66,9 @@
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Status}" Value="{x:Static core:ProcessorState.Running}">
                             <Setter Property="Background" Value="{StaticResource FocusedDataGridRowBrush}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Status}" Value="{x:Static core:ProcessorState.Finished}">
+                            <Setter Property="Background" Value="{StaticResource FinishedDataGridRowBrush}" />
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
@@ -117,6 +124,9 @@
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding Path=Status}" Value="{x:Static core:ProcessorState.Unactivated}">
                                     <Setter Property="ContentTemplate" Value="{StaticResource NotStartedProcessActions}" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Path=Status}" Value="{x:Static core:ProcessorState.Finished}">
+                                    <Setter Property="ContentTemplate" Value="{StaticResource FinishedProcessActions}" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>

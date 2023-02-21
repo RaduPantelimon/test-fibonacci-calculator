@@ -160,6 +160,15 @@ namespace NebuniaLuiFibonacciApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        public static string NoActionsAvailableLabel_Text {
+            get {
+                return ResourceManager.GetString("NoActionsAvailableLabel_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Execution Mode.
         /// </summary>
         public static string ProcessorSelectionInput_Label {
