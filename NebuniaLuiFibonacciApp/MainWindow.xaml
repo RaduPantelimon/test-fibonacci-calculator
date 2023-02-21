@@ -1,4 +1,4 @@
-﻿<Window x:Class="NebuniaLuiFibonacci.MainWindow"
+﻿<Window x:Class="NebuniaLuiFibonacciApp.MainWindow"
         x:Name="ResWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -10,7 +10,7 @@
         xmlns:core="clr-namespace:NebuniaLuiFibonacci.Core;assembly=NebuniaLuiFibonacci"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         mc:Ignorable="d"
-        Title="Fibonacci App" Height="400" Width="900">
+        Title="Fibonacci App" Height="400" Width="950">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -19,21 +19,21 @@
             <!--These 2 templates are basic, but they will eventually contain different sets of actions and a more complex layout-->
             <DataTemplate x:Key="RunningProcessActions">
                 <Button Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid},
-                                Path=DataContext.StopWorkerCommand}"  CommandParameter="{Binding}"
+                                Path=DataContext.StopProcessCommand}"  CommandParameter="{Binding}"
                         Style="{StaticResource GridButton}"
-                        Content="{x:Static props:Resources.StopTaskButton_Text}" />
+                        Content="{x:Static props:Resources.StopButton_Text}" />
             </DataTemplate>
             <DataTemplate x:Key="NotStartedProcessActions">
                 <Button Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid},
-                                Path=DataContext.StartWorkerCommand}"  CommandParameter="{Binding}"
+                                Path=DataContext.StartProcessCommand}"  CommandParameter="{Binding}"
                         Style="{StaticResource GridButton}"
-                        Content="{x:Static props:Resources.StartTaskButton_Text}" />
+                        Content="{x:Static props:Resources.StartButton_Text}" />
             </DataTemplate>
             <DataTemplate x:Key="FinishedProcessActions">
                 <Button Command="{Binding RelativeSource={RelativeSource AncestorType=DataGrid},
-                                Path=DataContext.RemoveWorkerCommand}"  CommandParameter="{Binding}"
+                                Path=DataContext.RemoveProcessCommand}"  CommandParameter="{Binding}"
                         Style="{StaticResource GridButton}"
-                        Content="{x:Static props:Resources.RemoveTaskButton_Text}" />
+                        Content="{x:Static props:Resources.RemoveButton_Text}" />
             </DataTemplate>
             <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
                             ObjectType="{x:Type s:Enum}">
@@ -128,6 +128,7 @@
                 <DataGridTemplateColumn Header="{x:Static props:Resources.FibDataGrid_Column_Actions}" Width="2*" IsReadOnly="True">
                     <DataGridTemplateColumn.CellStyle>
                         <Style TargetType="DataGridCell">
+                            <Setter Property="ContentTemplate" Value="{StaticResource FinishedProcessActions}" />
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding Path=Status}" Value="{x:Static core:ProcessorState.Running}">
                                     <Setter Property="ContentTemplate" Value="{StaticResource RunningProcessActions}" />
@@ -135,11 +136,7 @@
                                 <DataTrigger Binding="{Binding Path=Status}" Value="{x:Static core:ProcessorState.Unactivated}">
                                     <Setter Property="ContentTemplate" Value="{StaticResource NotStartedProcessActions}" />
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding Path=Status}" Value="{x:Static core:ProcessorState.Finished}">
-                                    <Setter Property="ContentTemplate" Value="{StaticResource FinishedProcessActions}" />
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding Path=Status}" Value="{x:Static core:ProcessorState.Canceled}">
-                                    <Setter Property="ContentTemplate" Value="{StaticResource FinishedProcessActions}" />
+                                <DataTrigger Binding="{Binding Path=Status}" Value="{x:Static core:ProcessorState.Faulted}">
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
@@ -159,10 +156,10 @@
                          Text="{Binding SecondTerm, ValidatesOnDataErrors=True, ValidatesOnExceptions=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" />
 
                 <TextBlock Text="{x:Static props:Resources.ProcessorSelectionInput_Label}" Style="{StaticResource InputFieldLabel}" />
-                <ComboBox Name="WorkerTypeComboBox" ItemsSource="{Binding Source={StaticResource dataFromEnum}}"
-                    SelectedItem="{Binding WorkerType}"  Style="{StaticResource BasicComboBox}" />
+                <ComboBox Name="TypeComboBox" ItemsSource="{Binding Source={StaticResource dataFromEnum}}"
+                    SelectedItem="{Binding Type}"  Style="{StaticResource BasicComboBox}" />
             </StackPanel>
-            <Button Command="{Binding CreateWorkerCommand}"
+            <Button Command="{Binding CreateProcessCommand}"
                     Content="{x:Static props:Resources.RunProcessButton_Label}">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource SaveButton}">

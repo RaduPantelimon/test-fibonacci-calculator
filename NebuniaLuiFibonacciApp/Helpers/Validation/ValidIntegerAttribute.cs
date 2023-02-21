@@ -8,12 +8,13 @@ using System.Threading.Tasks;
 
 namespace NebuniaLuiFibonacciApp
 {
+    //Required Validation only seems to Trigger after the field is first edited.
+    //We will use this custom validation attribute to make sure that users cannot submit null values
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter)]
-    sealed public class FibonacciIntegerAttribute : ValidationAttribute
+    sealed public class ValidIntegerAttribute : ValidationAttribute
     {
-        public FibonacciIntegerAttribute() : base()
+        public ValidIntegerAttribute() : base()
         {
-            
         }
         public override bool IsValid(object? value)
         {
@@ -21,11 +22,6 @@ namespace NebuniaLuiFibonacciApp
                 return false;
 
             return true;
-        }
-
-        protected override ValidationResult IsValid(object? value, ValidationContext validationContext)
-        {
-            return new ValidationResult("Something went wrong");
         }
     }
 }

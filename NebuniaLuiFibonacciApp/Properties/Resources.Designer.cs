@@ -79,6 +79,15 @@ namespace NebuniaLuiFibonacciApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Faulted.
+        /// </summary>
+        public static string FaultedLabel_Text {
+            get {
+                return ResourceManager.GetString("FaultedLabel_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Actions.
         /// </summary>
         public static string FibDataGrid_Column_Actions {
@@ -189,9 +198,9 @@ namespace NebuniaLuiFibonacciApp.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Remove.
         /// </summary>
-        public static string RemoveTaskButton_Text {
+        public static string RemoveButton_Text {
             get {
-                return ResourceManager.GetString("RemoveTaskButton_Text", resourceCulture);
+                return ResourceManager.GetString("RemoveButton_Text", resourceCulture);
             }
         }
         
@@ -216,18 +225,18 @@ namespace NebuniaLuiFibonacciApp.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Start.
         /// </summary>
-        public static string StartTaskButton_Text {
+        public static string StartButton_Text {
             get {
-                return ResourceManager.GetString("StartTaskButton_Text", resourceCulture);
+                return ResourceManager.GetString("StartButton_Text", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Stop.
         /// </summary>
-        public static string StopTaskButton_Text {
+        public static string StopButton_Text {
             get {
-                return ResourceManager.GetString("StopTaskButton_Text", resourceCulture);
+                return ResourceManager.GetString("StopButton_Text", resourceCulture);
             }
         }
     }

@@ -117,14 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Exception_GenericStartWorkerError" xml:space="preserve">
-    <value>Cannot start a Worker that has been previously started</value>
+  <data name="Exception_GenericStartProcessError" xml:space="preserve">
+    <value>Cannot start a Process that has been previously started</value>
   </data>
-  <data name="Exception_StartFinishedWorker" xml:space="preserve">
-    <value>Cannot re-start a finished Worker</value>
+  <data name="Exception_StartAlreadyFinishedProcess" xml:space="preserve">
+    <value>Cannot re-start a finished Process</value>
   </data>
-  <data name="Exception_StopWorkerError" xml:space="preserve">
-    <value>Cannot stop Worker that is not currently running</value>
+  <data name="Exception_StopProcessError" xml:space="preserve">
+    <value>Cannot stop Process that is not currently running</value>
   </data>
   <data name="TaskProcessor_Name" xml:space="preserve">
     <value>Task</value>

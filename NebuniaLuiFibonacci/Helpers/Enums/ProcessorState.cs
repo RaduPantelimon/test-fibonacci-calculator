@@ -12,5 +12,6 @@ namespace NebuniaLuiFibonacci.Core
         Running,
         Canceled,
         Finished,
+        Faulted
     }
 }

@@ -22,7 +22,7 @@ namespace NebuniaLuiFibonacciApp
         private int? secondTerm;
 
         [Required]
-        [FibonacciInteger]
+        [ValidInteger]
         public int? FirstTerm 
         {
             get
@@ -37,7 +37,7 @@ namespace NebuniaLuiFibonacciApp
         }
 
         [Required]
-        [FibonacciInteger]
+        [ValidInteger]
         public int? SecondTerm
         {
             get
@@ -50,7 +50,7 @@ namespace NebuniaLuiFibonacciApp
                 this.OnPropertyChanged();
             }
         }
-        public ProcessorType WorkerType { get; set; }
+        public ProcessorType Type { get; set; } = ProcessorType.Task;
 
     }
 }

@@ -19,7 +19,7 @@ using NebuniaLuiFibonacciApp;
 using NebuniaLuiFibonacciApp.Properties;
 using NebuniaLuiFibonacciApp.Helpers;
 
-namespace NebuniaLuiFibonacci
+namespace NebuniaLuiFibonacciApp
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

@@ -19,7 +19,7 @@ namespace NebuniaLuiFibonacci.Core
         {
             //via Default task scheduler we "lose the SynchronizationContext" and we jump on another Thread ASAP -
             //relevant if the ExecuteNext is really computationallyIntensive
-            Task.Factory.StartNew(ExecuteProcessStepsAsync, 
+            Task task  = Task.Factory.StartNew(ExecuteProcessStepsAsync, 
                 CancellationTokenSource.Token, 
                 TaskCreationOptions.None, 
                 TaskScheduler.Default);
@@ -27,12 +27,21 @@ namespace NebuniaLuiFibonacci.Core
 
         protected async Task ExecuteProcessStepsAsync()
         {
-            while (this.CanExecuteNextStep)
+            try
             {
-                Process.ExecuteNext();
-                await Task.Delay(TickDelay, CancellationTokenSource.Token).ConfigureAwait(false);
+                while (this.CanExecuteNextStep)
+                {
+                    Process.ExecuteNext();
+                    await Task.Delay(TickDelay, CancellationTokenSource.Token).ConfigureAwait(false);
+                }
+                PostProcessingLogic();
             }
-            PostProcessingLogic();
+            catch (Exception ex) when (ex is not OperationCanceledException)
+            {
+                Console.WriteLine(ex.ToString()); //DUMMY LOG EXCEPTION => NORMALLY WE WOULD USE A LOGGER HERE
+                Status = ProcessorState.Faulted;
+                throw; //Throwing the error, so our task appears as faulted
+            }
         }
     }
 }

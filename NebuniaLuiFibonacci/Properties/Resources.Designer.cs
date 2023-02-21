@@ -61,29 +61,29 @@ namespace NebuniaLuiFibonacci.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cannot start a Worker that has been previously started.
+        ///   Looks up a localized string similar to Cannot start a Process that has been previously started.
         /// </summary>
-        internal static string Exception_GenericStartWorkerError {
+        internal static string Exception_GenericStartProcessError {
             get {
-                return ResourceManager.GetString("Exception_GenericStartWorkerError", resourceCulture);
+                return ResourceManager.GetString("Exception_GenericStartProcessError", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cannot re-start a finished Worker.
+        ///   Looks up a localized string similar to Cannot re-start a finished Process.
         /// </summary>
-        internal static string Exception_StartFinishedWorker {
+        internal static string Exception_StartAlreadyFinishedProcess {
             get {
-                return ResourceManager.GetString("Exception_StartFinishedWorker", resourceCulture);
+                return ResourceManager.GetString("Exception_StartAlreadyFinishedProcess", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cannot stop Worker that is not currently running.
+        ///   Looks up a localized string similar to Cannot stop Process that is not currently running.
         /// </summary>
-        internal static string Exception_StopWorkerError {
+        internal static string Exception_StopProcessError {
             get {
-                return ResourceManager.GetString("Exception_StopWorkerError", resourceCulture);
+                return ResourceManager.GetString("Exception_StopProcessError", resourceCulture);
             }
         }
         

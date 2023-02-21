@@ -48,9 +48,9 @@ namespace NebuniaLuiFibonacci.Core
         public void Start()
         {
             if (Status == ProcessorState.Canceled) 
-                throw new InvalidOperationException(Resources.Exception_StartFinishedWorker);
+                throw new InvalidOperationException(Resources.Exception_StartAlreadyFinishedProcess);
             if (Status != ProcessorState.Unactivated) 
-                throw new InvalidOperationException(Resources.Exception_GenericStartWorkerError);
+                throw new InvalidOperationException(Resources.Exception_GenericStartProcessError);
 
             Status = ProcessorState.Running;
             BeginProcess();
@@ -61,7 +61,7 @@ namespace NebuniaLuiFibonacci.Core
         public void Stop()
         {
             if (Status != ProcessorState.Running) 
-                throw new InvalidOperationException(Resources.Exception_StopWorkerError);
+                throw new InvalidOperationException(Resources.Exception_StopProcessError);
             
             Status = ProcessorState.Canceled;
             CancellationTokenSource.Cancel();

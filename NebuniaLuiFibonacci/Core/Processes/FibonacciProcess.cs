@@ -71,7 +71,7 @@ namespace NebuniaLuiFibonacci.Core
         public void ExecuteNext()
         {
             //calculate new Fibonacci element and update terms
-            int sum = checked(PenultimateTerm + LastTerm);
+            int sum = checked(PenultimateTerm + LastTerm); //throw exception we overflow
             lock(_termLock) //we don't want for a consumer to retrieve missmatched terms by accident
             {
                 PenultimateTerm = LastTerm;
