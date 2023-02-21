@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace NebuniaLuiFibonacci.Core
 {
-    public class FibonacciProcess: ISequentialProcess, INotifyPropertyChanged
+    public class FibonacciProcess: IMultiStepProcess, INotifyPropertyChanged
     {
         public int OriginalFirstTerm { get; }
         public int OriginalSecondTerm { get; }
@@ -54,10 +54,24 @@ namespace NebuniaLuiFibonacci.Core
             LastTerm = OriginalSecondTerm = term2;
         }
 
-        public void ExecuteNextSequence()
+        public bool CanExecuteNextStep
+        {
+            get
+            {
+                if (PenultimateTerm > 0 && LastTerm > 0 && int.MaxValue - LastTerm < PenultimateTerm)
+                    return false;
+                if (PenultimateTerm < 0 && LastTerm < 0 && int.MinValue - LastTerm < PenultimateTerm)
+                    return false;
+
+                return true;
+            }
+        }
+        
+
+        public void ExecuteNext()
         {
             //calculate new Fibonacci element and update terms
-            int sum = PenultimateTerm + LastTerm;
+            int sum = checked(PenultimateTerm + LastTerm);
             lock(_termLock) //we don't want for a consumer to retrieve missmatched terms by accident
             {
                 PenultimateTerm = LastTerm;

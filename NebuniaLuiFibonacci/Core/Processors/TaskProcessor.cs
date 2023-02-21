@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace NebuniaLuiFibonacci.Core
 {
-    public class TaskProcessor<T> : BackgroundProcessor<T> where T : ISequentialProcess
+    public class TaskProcessor<T> : BackgroundProcessor<T> where T : IMultiStepProcess
     {
 
         public TaskProcessor(T process) : base(process)
@@ -23,12 +23,13 @@ namespace NebuniaLuiFibonacci.Core
             //jump on another Thread ASAP - relevant if the ExecuteNextSequence is really computationallyIntensive
             await Task.Yield();
 
-            while (!CancellationTokenSource.IsCancellationRequested)
+            while (Process.CanExecuteNextStep && !CancellationTokenSource.IsCancellationRequested)
             {
                 
-                Process.ExecuteNextSequence();
+                Process.ExecuteNext();
                 await Task.Delay(TickDelay, CancellationTokenSource.Token).ConfigureAwait(false);
             }
+            if (!Process.CanExecuteNextStep) Status = ProcessorState.Finished;
         }
     }
 }

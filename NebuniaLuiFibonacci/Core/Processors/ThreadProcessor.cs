@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NebuniaLuiFibonacci.Core
 {
-    public class ThreadProcessor<T> : BackgroundProcessor<T> where T : ISequentialProcess
+    public class ThreadProcessor<T> : BackgroundProcessor<T> where T : IMultiStepProcess
     {
         public ThreadProcessor(T process) : base(process)
         {
@@ -16,11 +16,12 @@ namespace NebuniaLuiFibonacci.Core
         {
             var thread = new Thread(() =>
             {
-                while (!CancellationTokenSource.IsCancellationRequested)
+                while (Process.CanExecuteNextStep && !CancellationTokenSource.IsCancellationRequested)
                 {
-                    Process.ExecuteNextSequence();
+                    Process.ExecuteNext();
                     CancellationTokenSource.Token.WaitHandle.WaitOne(TickDelay);
                 }
+                if (!Process.CanExecuteNextStep) Status = ProcessorState.Finished;
             });
             thread.IsBackground = true;
             thread.Start();

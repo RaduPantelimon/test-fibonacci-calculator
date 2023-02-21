@@ -11,6 +11,6 @@ namespace NebuniaLuiFibonacci.Core
         Unactivated,
         Running,
         Canceled,
-        Faulted
+        Finished,
     }
 }

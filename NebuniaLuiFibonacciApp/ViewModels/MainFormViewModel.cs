@@ -22,7 +22,7 @@ namespace NebuniaLuiFibonacciApp
             FibonacciProcess = new FibonacciProcessViewModel();
 
             //TEST DATA
-            LiveFibonacciProcesses.Add(new TaskProcessor<FibonacciProcess>(new FibonacciProcess(2, 3)));
+            LiveFibonacciProcesses.Add(new TaskProcessor<FibonacciProcess>(new FibonacciProcess(2_000_000, 3_000_000)));
             LiveFibonacciProcesses.Add(new TaskProcessor<FibonacciProcess>(new FibonacciProcess(5, 8)));
             LiveFibonacciProcesses.Add(new ThreadProcessor<FibonacciProcess>(new FibonacciProcess(1, 2)));
             LiveFibonacciProcesses.Add(new ThreadProcessor<FibonacciProcess>(new FibonacciProcess(1, 1)));
@@ -34,9 +34,9 @@ namespace NebuniaLuiFibonacciApp
 
         #region Commands
 
-        public ICommand CreateWorkerCommand { get; set; }
-        public ICommand StopWorkerCommand { get; set; }
-        public ICommand StartWorkerCommand { get; set; }
+        public ICommand CreateWorkerCommand { get; protected set; }
+        public ICommand StopWorkerCommand { get; protected set; }
+        public ICommand StartWorkerCommand { get; protected set; }
 
         public void StopWorker_Execute(BackgroundProcessor<FibonacciProcess> worker)
         {
