@@ -15,8 +15,6 @@ namespace NebuniaLuiFibonacci.Core
     public abstract class BackgroundProcessor<T>:ISequentialProcessor<T>, INotifyPropertyChanged where T: IMultiStepProcess
     {
         protected static TimeSpan TickDelay { get; } = TimeSpan.FromMilliseconds(int.Parse(Resources.Tick));
-        protected static TimeSpan ThreadDelay { get; } = TimeSpan.FromMilliseconds(int.Parse(Resources.ThreadDelay));
-        protected static TimeSpan TaskDelay { get; } = TimeSpan.FromMilliseconds(int.Parse(Resources.TaskDelay));
 
         private readonly object _stateLock = new object();
 

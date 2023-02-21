@@ -88,25 +88,7 @@ namespace NebuniaLuiFibonacci.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 3000.
-        /// </summary>
-        internal static string TaskDelay {
-            get {
-                return ResourceManager.GetString("TaskDelay", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 2000.
-        /// </summary>
-        internal static string ThreadDelay {
-            get {
-                return ResourceManager.GetString("ThreadDelay", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 500.
+        ///   Looks up a localized string similar to 1000.
         /// </summary>
         internal static string Tick {
             get {
